@@ -1,0 +1,37 @@
+<form id="add-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">{:__('分类')}:</label>
+        <div class="col-xs-12 col-sm-8">
+            {:build_select('class',[0=>'社区短文', 1=>'社区图片', 2=>'社区视频',3=>'长视频',4=>'短视频'],null,['class'=>'form-control', 'required'=>''])}
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-2">内容</label>
+        <div class="col-xs-12 col-sm-9">
+            <dl class="fieldlist skuAdd" data-name="skus" data-template="testtpl">
+                <dd>
+                <dd><a href="javascript:;" class="btn btn-sm btn-success btn-append"><i class="fa fa-plus"></i>
+                    {:__('Append')}</a></dd>
+            </dl>
+            <div>
+            </div>
+            <!--定义模板-->
+            <script type="text/javascript" id="testtpl">
+				<dd class="form-inline">
+					<input type="text" name="comments[]" class="form-control">
+					</span>
+					</div>
+					<span class="msg-box n-right" for="t-image"></span>
+					</div>
+					<span class="btn btn-sm btn-danger btn-remove"><i class="fa fa-times"></i></span> <span class="btn btn-sm btn-primary btn-dragsort"><i class="fa fa-arrows"></i></span>
+				</dd>
+            </script>
+            <!--添加规格结束-->
+    <div class="form-group layer-footer">
+        <label class="control-label col-xs-12 col-sm-2"></label>
+        <div class="col-xs-12 col-sm-8">
+            <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+            <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+        </div>
+    </div>
+</form>

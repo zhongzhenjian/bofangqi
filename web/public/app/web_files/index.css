@@ -1,0 +1,498 @@
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+#app, .dur-mobile-website {
+    height: 100%;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    background: #fff;
+    position: relative;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+
+.dur-mobile-header {
+    padding: 16px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.dur-image-logo {
+    height: 38px;
+    width:120px;
+}
+
+.dur-website-gif-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    object-fit: cover;
+}
+
+.dur-mobile-page-one {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.dur-font-logo-container {
+    position: absolute;
+    text-align: center;
+    top: 32%;
+    width: 100%;
+}
+
+.dur-font-logo {
+    height: 138px;
+    width: 209px;
+}
+
+.dur-bottom {
+    position: absolute;
+    right: 0;
+    text-align: center;
+    bottom: 24px;
+    width: 100%;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+    z-index: 999;
+}
+
+.page-one-download-btn {
+    width: 139px;
+    height: 48px;
+}
+
+.dur-icon-next-page {
+    width: 45px;
+    height: 27px;
+    display: block;
+    margin: 12px auto 0;
+}
+
+.dur-mobile-step-2 {
+    background-image: linear-gradient(0deg, #FFA429 0%, #FFD95D 100%);
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+
+.dur-image-layer-1 {
+    width: 100%;
+    position: absolute;
+    display: block;
+    transition: top 0.5s;
+    right: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 1;
+    top: 295px;
+}
+
+.dur-image-layer-1-active {
+    top: 150px;
+}
+
+.dur-image-layer-2 {
+    width: 100%;
+    position: absolute;
+    top: 295px;
+    transition: top 0.8s;
+    right: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 3;
+}
+
+.dur-image-layer-2-active {
+    top: 110px;
+}
+
+.dur-image-layer-3 {
+    width: 100%;
+    position: absolute;
+    top: 295px;
+    transition: top 1.2s;
+    right: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    z-index: 2;
+}
+
+.dur-image-layer-3-active {
+    top: 138px;
+}
+
+.dur-mobile-step-3 {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    background-image: linear-gradient(0deg, #9873FA 3%, #B596FD 100%);
+}
+
+.dur-step-3-bottom-bg {
+    background-image: url("../images/dur-step3-bottom-bg.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+
+.dur-step-3-animation {
+    width: 100%;
+    height: 180px;
+    position: relative;
+    opacity: 0;
+}
+
+.dur-step-3-animation-image {
+    height: 153px;
+    width: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.dur-step-3-animation-image-active {
+    top: 70px;
+}
+
+.dur-step-3-animation-text {
+    width: 0;
+    height: 0;
+    position: absolute;
+    right: 75px;
+    top: 125px;
+    transition: width 1s, height 1s, top 1s, right 1s;
+}
+
+.dur-step-3-animation-text-active {
+    top: 55px;
+    width: 46px;
+    height: 30px;
+    right: 50px;
+}
+
+
+.dur-mobile-step-4 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.dur-mobile-page4-download {
+    height: 25px;
+    width: 64px;
+    background-color: #FFD95D;
+    font-family: PingFangSC-Medium;
+    font-size: 12px;
+    color: #2A3946;
+    border-radius: 4px;
+    line-height: 2.2;
+}
+
+.dur-mobile-about-us {
+    text-align: center;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.dur-mobile-about-us-container {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+}
+
+.dur-mobile-step-4-item {
+    width: 253px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin: 0 auto 20px;
+    text-align: left;
+}
+
+.dur-mobile-step-4-item-btn {
+    font-family: PingFangSC-Medium;
+    font-size: 12px;
+    color: #FFFFFF;
+    height: 21px;
+    width: 74px;
+    text-align: center;
+    border: 1px solid #FFFFFF !important;
+    border-radius: 4px;
+    line-height: 1.8;
+}
+
+.dur-mobile-step-4-warning {
+    margin: 35px auto 0;
+    height: 56px;
+    width: 237px;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+    padding: 8px;
+    line-height: 1.8;
+}
+
+.dur-mobile-user-protect {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+    margin: 24px auto 0;
+    height: 20px;
+    width: 158px;
+    text-align: center;
+}
+
+.dur-mobile-step-4-bottom {
+    position: fixed;
+    height: 52px;
+    width: 100%;
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+    bottom: 0;
+    right: 0;
+    background: rgba(51, 51, 51, 0.1);
+    z-index: 2;
+}
+
+.dur-mobile-step-4-save {
+    background: #FFD95D;
+    border-radius: 4px;
+    height: 36px;
+    width: 80px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    line-height: 2.5;
+    text-align: center;
+}
+
+.dur-mobile-step4-close-btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.dur-test-flight-tips-box {
+    display: none;
+}
+
+.dur-test-flight-popup {
+    background: #FFFFFF;
+    border-radius: 4px;
+    height: 178px;
+    width: 278px;
+    position: relative;
+    padding: 34px 16px 0;
+}
+
+.dur-test-flight-close {
+    height: 24px;
+    width: 24px;
+    position: absolute;
+    right: 4px;
+    top: 4px;
+}
+
+.dur-test-flight-tips-step1 {
+    font-family: PingFangSC-Medium;
+    font-size: 12px;
+    color: #1E1E1E;
+}
+
+.dur-mj-tips-box {
+    display: none;
+}
+
+.mj-tips-step1-image {
+    height: 72px;
+    width: 100%;
+}
+
+.dur-pc-website {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.dur-pc-logo {
+    height: 158px;
+    width: 158px;
+}
+
+.dur-pc-txt-1 {
+    font-family: zcoolqingkehuangyouti-Regular;
+    font-size: 45px;
+    color: #FFFFFF;
+    margin-top: 48px;
+}
+
+.dur-pc-download {
+    font-family: PingFangSC-Medium;
+    font-size: 32px;
+    color: #333333;
+    text-align: center;
+    width: 305px;
+    padding: 18px 0;
+    background: #FFD95D;
+    margin: 42px auto 0;
+    border-radius: 4px;
+}
+
+.dur-pc-bottom {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.dur-qrcode-box {
+    display: none;
+}
+
+.dur-qrcode-content {
+    background: #ffffff;
+    padding: 28px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.dur-copy-textarea {
+    position: absolute;
+    bottom: 0;
+    left: -9rem;
+    opacity: 0;
+    width: 100px;
+    height: 200px;
+    z-index: 999;
+}
+
+.dur-down-load-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dur-android-down-container {
+    margin-left: 30px;
+}
+
+.dur-android-tips-box {
+    display: none;
+}
+
+.dur-android-tips-popup {
+    background: #FFFFFF;
+    border-radius: 4px;
+    height: 387px;
+    width: 280px;
+    position: relative;
+}
+
+.dur-android-tips-popup-image {
+    height: 325px;
+    width: 280px;
+}
+
+.btn-down-android {
+    background: #FFD95D;
+    border-radius: 4px;
+    font-family: PingFangSC-Regular;
+    font-size: 16px;
+    color: #222222;
+    height: 40px;
+    width: 155px;
+    margin: 10px auto 0;
+    text-align: center;
+    line-height: 40px;
+}
+
+.dur-save-to-desktop {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+}
+
+.dur-save-to-desktop-content {
+    display: flex;
+    justify-content: center;
+    -webkit-justify-content: center;
+    align-items: center;
+    -webkit-align-items: center;
+    background: #FFFFFF;
+    border-radius: 4px;
+    font-family: PingFangSC-Regular;
+    font-size: 12px;
+    color: #333333;
+    height: 33px;
+    line-height: 33px;
+    width: fit-content;
+    margin: 0 auto;
+    padding: 0 12px;
+}
+
+.dur-save-to-desktop-content:before{
+    content:'';
+    width: 0;
+    height: 0;
+    border-width: 10px 10px 0;
+    border-style: solid;
+    border-color: #ffffff transparent  transparent;
+    position: absolute;
+    left: 47%;
+    top: 33px;
+}
+
+.dur-save-to-desktop-container {
+    position: absolute;
+    bottom: 24px;
+    width: 100%;
+}

@@ -1,0 +1,114 @@
+Application path: /kefu/php/app.php?operator-is-online
+2021-06-14 15:53:49 count(): Parameter must be an array or an object that implements Countable on line 447 in /www/wwwroot/app.ptvod.tv/public/kefu/php/model/UserModel.php
+Application path: /kefu/php/app.php?operator-is-online
+2021-06-14 16:48:43 count(): Parameter must be an array or an object that implements Countable on line 447 in /www/wwwroot/app.ptvod.tv/public/kefu/php/model/UserModel.php
+Application path: /kefu/php/app.php?operator-is-online
+2022-01-08 14:39:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:50 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:68 (Database:connect())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:28 (Database:reconnect())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Service.php:17 (Database:onRegister())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/ServiceContainer.php:55 (Service:setServiceContainer())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Model.php:20 (ServiceContainer:get())
+/www/wwwroot/154.64.2.4/public/kefu/php/model/UserModel.php:518 (Model:__construct())
+/www/wwwroot/154.64.2.4/public/kefu/php/controller/OperatorController.php:356 (UserModel:repo())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:165 (OperatorController:isOnlineAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+2022-01-08 14:39:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/ExceptionHandler.php:23 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:180 (ExceptionHandler:createResponse())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+Application path: /kefu/php/app.php?department-online
+2022-01-08 14:39:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:50 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:68 (Database:connect())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:28 (Database:reconnect())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Service.php:17 (Database:onRegister())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/ServiceContainer.php:55 (Service:setServiceContainer())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Model.php:20 (ServiceContainer:get())
+/www/wwwroot/154.64.2.4/public/kefu/php/model/DepartmentModel.php:26 (Model:__construct())
+/www/wwwroot/154.64.2.4/public/kefu/php/controller/DepartmentController.php:188 (DepartmentModel:repo())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:165 (DepartmentController:getOnlineAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+2022-01-08 14:39:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/ExceptionHandler.php:23 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:180 (ExceptionHandler:createResponse())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+Application path: /kefu/php/app.php?department-online
+2022-01-08 14:42:15 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:50 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:68 (Database:connect())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:28 (Database:reconnect())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Service.php:17 (Database:onRegister())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/ServiceContainer.php:55 (Service:setServiceContainer())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Model.php:20 (ServiceContainer:get())
+/www/wwwroot/154.64.2.4/public/kefu/php/model/DepartmentModel.php:26 (Model:__construct())
+/www/wwwroot/154.64.2.4/public/kefu/php/controller/DepartmentController.php:188 (DepartmentModel:repo())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:165 (DepartmentController:getOnlineAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+2022-01-08 14:42:15 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/ExceptionHandler.php:23 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:180 (ExceptionHandler:createResponse())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+Application path: /kefu/php/app.php?operator-is-online
+2022-01-08 14:42:15 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:50 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:68 (Database:connect())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:28 (Database:reconnect())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Service.php:17 (Database:onRegister())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/ServiceContainer.php:55 (Service:setServiceContainer())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Model.php:20 (ServiceContainer:get())
+/www/wwwroot/154.64.2.4/public/kefu/php/model/UserModel.php:518 (Model:__construct())
+/www/wwwroot/154.64.2.4/public/kefu/php/controller/OperatorController.php:356 (UserModel:repo())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:165 (OperatorController:isOnlineAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+2022-01-08 14:42:15 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/ExceptionHandler.php:23 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:180 (ExceptionHandler:createResponse())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+Application path: //kefu/php/app.php?login
+2022-01-08 14:45:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:50 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:68 (Database:connect())
+/www/wwwroot/154.64.2.4/public/kefu/php/service/Database.php:28 (Database:reconnect())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Service.php:17 (Database:onRegister())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/ServiceContainer.php:55 (Service:setServiceContainer())
+/www/wwwroot/154.64.2.4/public/kefu/php/lib/Model.php:20 (ServiceContainer:get())
+/www/wwwroot/154.64.2.4/public/kefu/php/model/UserModel.php:518 (Model:__construct())
+/www/wwwroot/154.64.2.4/public/kefu/php/controller/AuthenticationController.php:248 (UserModel:repo())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:165 (AuthenticationController:loginAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+
+2022-01-08 14:45:03 [error] SQLSTATE[HY000] [1045] Access denied for user 'app2_mgyun_vip'@'localhost' (using password: YES)
+Stack trace:
+/www/wwwroot/154.64.2.4/public/kefu/php/service/ExceptionHandler.php:23 (Logger:error())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:180 (ExceptionHandler:createResponse())
+/www/wwwroot/154.64.2.4/public/kefu/php/app/Application.php:89 (Application:runAction())
+/www/wwwroot/154.64.2.4/public/kefu/php/app.php:27 (Application:run())
+

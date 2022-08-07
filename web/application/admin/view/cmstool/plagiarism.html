@@ -1,0 +1,47 @@
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <div class="panel-lead">
+            <em>仿站配置</em>可以在下面填写你需要仿站的网页地址，网页的编码格式，如果需要登陆的网页请填写好token，提交后生成的网页将保存在public/cmstool目录下。<br>
+            <dl style="color: green">
+                <dt>小技巧：</dt>
+                <dd>（1）同一个网页可以提交多次以保证文件下载完整。</dd>
+                <dd>（2）有些图片并非使用&lt;img&gt;标签，而是使用如&lt;div img-data="/test.png"&gt;这样的标签，可以图片参数中加上“div[img-data]”即可下载该图片。</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="cmstool/plagiarism/save">
+            <div class="form-group">
+                <label for="c-url" class="control-label col-xs-12 col-sm-2">网页地址：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-url" data-rule="required" class="form-control" name="row[url]" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-imgcode" class="control-label col-xs-12 col-sm-2">图片参数：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-imgcode" class="form-control" name="row[imgcode]" type="text" value="img[src],img[data-lazyload-img],div[img-data]">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-tempfile" class="control-label col-xs-12 col-sm-2">模板文件：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-tempfile" class="form-control" name="row[tempfile]" type="text" value="index.html" placeholder="生成的模板文件名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-cookies" class="control-label col-xs-12 col-sm-2">cookies：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <textarea id="c-cookies" name="row[cookies]" class="form-control" placeholder="可以为空，需要登陆的网站必须填写"></textarea>
+                </div>
+            </div>
+            <div class="form-group layer-footer">
+                <label class="control-label col-xs-12 col-sm-2"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <button type="submit" class="btn btn-success btn-embossed disabled">提交</button>
+                    <button type="reset" class="btn btn-default btn-embossed">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

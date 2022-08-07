@@ -1,0 +1,51 @@
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
+.dur-share-container {
+    height: 100%;
+    width: 100%;
+    background-image: url("../images/icon-share-page-bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    text-align: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    justify-content: center;
+    -webkit-justify-content: center;
+}
+
+.dur-share-content {
+    text-align: center;
+    position: relative;
+}
+
+.share-dur-logo {
+    height: 90px;
+    width: 90px;
+}
+
+.dur-share-content-font {
+    font-family: PingFangSC-Regular;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.dur-share-enter-btn {
+    background: #FFD95D;
+    height: 42px;
+    width: 259px;
+    margin-top: 70px;
+    font-family: PingFangSC-Medium;
+    font-size: 17px;
+    color: #333333;
+    text-align: center;
+    border-radius: 4px;
+    line-height: 2.5;
+}

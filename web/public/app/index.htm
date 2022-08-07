@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!-- saved from url=(0296)https://sharell.rmimil.online/?inviteCode=QNEWQY&nsukey=dRwkk1FjqX%2BrDIRCs2ma0uWsf1j3ib33BG7vteXijvD9BGeihd2FbcNhImInxU4wMIVD1%2FPQ%2FDTB%2FYGH%2FEA9X23JyfVzc1a4XTArIC9UcFUP0ef8xNjmDF%2BEkSody2EZuA9nKy%2FI28nuBV%2FpzcyTkEIJCfUlBWXRgObXDdes2BYwRHLCwpAc%2Bg8y7QgcJGvABUk2G4mvb%2F48LmOgdQ10WQ%3D%3D -->
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <title>葡萄社区</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="theme-color" content="#E85151">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Liulian">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="renderer" content="webkit">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="browsermode" content="application">
+    <meta name="x5-page-mode" content="app">
+    <link rel="apple-touch-icon" href="./logo.png">
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet" href="./web_files/swiper.min.css">
+    <link rel="stylesheet" href="./web_files/index.css">
+    <link rel="stylesheet" href="./web_files/common.css">
+    <link rel="stylesheet" href="./web_files/animation.css">
+    <link rel="stylesheet" href="./web_files/secondPage.css">
+  </head>
+  <body style="">
+    <div id="app">
+      <div class="dur-pc-website hide">
+        <div class="dur-share-container">
+          <div class="dur-share-content" style="width: 100%;padding-bottom: 300px;">
+            <img src="./web_files/icon-share-dur-logo.png" class="dur-pc-logo">
+            <div class="dur-pc-txt-1">
+              華語第一成人社區
+            </div>
+            <div class="dur-share-content-font dur-margin-top-16" style="font-size: 24px;">
+              社區 圖文 視頻 成抖
+            </div>
+            <div class="dur-pc-download" onclick="showPopup(&#39;dur-qrcode-box&#39;)">
+              立即下載
+            </div>
+          </div>
+          <div class="dur-pc-bottom">
+            <div class="dur-mobile-step-4-warning" style="width: 455px;font-size: 18px;">
+              警告：如果您未滿18歲或成人內容與當地法律相抵觸，建議您離開本站。
+            </div>
+            <div class="dur-mobile-user-protect">
+              @葡萄社区
+              <!-- <span style="color: #FFD95D" class="dur-user-protocol" onclick="toUserProtocol()">《用戶協議》</span> -->
+            </div>
+          </div>
+        </div>
+        <!--二维码弹框-->
+        <div class="dur-qrcode-box">
+          <div class="dur-v-model"></div>
+          <div class="dur-popup" style="background:none;text-align:center;">
+            <div class="dur-qrcode-content">
+              <div id="qrcode"><canvas width="263" height="263" style="display: none;"></canvas><img
+                  src="data:image/png;base64,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"
+                  style="display: block;"></div>
+              <div class="dur-font-22-1E1E1E-r dur-margin-top-16">
+                請使用手機掃描二維碼下載
+              </div>
+            </div>
+            <img src="./web_files/icon-close-pop-up.png" onclick="hidePopup(&#39;dur-qrcode-box&#39;)" class="dur-btn-pop-up-close">
+          </div>
+        </div>
+      </div>
+      <div class="dur-mobile-website">
+        <!--粘贴板容器(复制邀请码)-->
+        <textarea id="bar2" readonly="readonly" class="dur-copy-textarea">        </textarea>
+
+        <!--粘贴板容器(复制官网地址)-->
+        <textarea id="bar3" readonly="readonly" class="dur-copy-textarea">        </textarea>
+        <!-- Swiper -->
+        <div class="swiper-container swiper-container-initialized swiper-container-vertical swiper-container-ios">
+          <div class="swiper-wrapper" style="transform: translate3d(0px, 0px, 0px);">
+            <div class="swiper-slide swiper-slide-active" style="height: 667px;">
+              <img src="./web_files/dur-website-bg.gif" class="dur-website-gif-bg">
+              <div class="dur-mobile-page-one">
+                <div style="position: relative;height: 100%;">
+                  <div class="dur-mobile-header dur-flex-between">
+                    <img src="./web_files/WechatIMG25.png" class="dur-image-logo">
+                    <div>
+                      社區 圖文 視頻 成抖
+                      
+                    </div>
+                  </div>
+                  <div class="dur-font-logo-container">
+                    <img src="./web_files/WechatIMG24.png" class="dur-font-logo">
+                  </div>
+                  <div class="dur-bottom">
+                    <div class="dur-down-load-box">
+                      <div class="dur-ios-down-container" style="position:relative">
+                        <img src="./web_files/WechatIMG26.png" style="position:absolute;top:0;left:0;z-index:-1" class="page-one-download-btn  dur-btn"
+                          data-clipboard-target="#bar2">
+                          <div class="btn-down-home-ios" style="width: 139px;height: 48px;color:#000;line-height:48px">
+                              IOS下載
+                          </div>
+                        <!-- <div class="dur-margin-top-4" id="app-version-desc">
+                                            IOS版本下載說明
+                                        </div> -->
+                      </div>
+                      <div class="dur-android-down-container" style="position:relative">
+                        <img src="./web_files/WechatIMG26.png" style="position:absolute;top:0;left:0;z-index:-1" class="page-one-download-btn  dur-btn"
+                          data-clipboard-target="#bar2">
+                          <div style="width: 139px;height: 48px;color:#000;line-height:48px" class="btn-down-home-android">
+                              安卓下載
+                          </div>
+                        <!-- <div class="dur-margin-top-4" id="app-version-desc-android">
+                                            安卓版本安裝說明
+                                        </div> -->
+                      </div>
+                    </div>
+                    <img src="./web_files/icon-next-page.png" class="dur-icon-next-page dur-next-step-animation dur-margin-top-12">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!--第二页-->
+            <div class="swiper-slide swiper-slide-next" style="height: 667px;">
+              <div class="dur-mobile-step-2">
+                <div class="dur-mobile-header dur-flex-between">
+                  <img src="./web_files/WechatIMG25.png" class="dur-image-logo">
+                  <div>
+                    社區 圖文 視頻 成抖
+                  </div>
+                </div>
+                <img src="./web_files/dur-step2-layer-1.png" class="dur-image-layer-1">
+                <img src="./web_files/dur-step2-layer-2.png" class="dur-image-layer-2">
+                <img src="./web_files/dur-step2-layer-3.png" class="dur-image-layer-3">
+                <div class="dur-bottom">
+                  <div class="dur-font-33-white-m">
+                    萬部影視資源想看就看
+                  </div>
+                  <div class="dur-font-16-white-r dur-margin-top-8">
+                    分享的都是妳愛的
+                  </div>
+                  <img src="./web_files/icon-page-one-down-btn.png" class="page-one-download-btn btn-down dur-margin-top-44 dur-btn">
+                  <img src="./web_files/icon-next-page.png" class="dur-icon-next-page dur-next-step-animation dur-margin-top-12">
+                </div>
+              </div>
+            </div>
+            <!--第三页-->
+            <div class="swiper-slide" style="height: 667px;">
+              <div class="dur-mobile-step-3">
+                <div class="dur-mobile-header dur-flex-between">
+                  <img src="./web_files/WechatIMG25.png" class="dur-image-logo">
+                  <div>
+                    社區 圖文 視頻 成抖
+                  </div>
+                </div>
+                <div class="dur-step-3-animation">
+                  <img src="./web_files/icon-font-l.png" style="transition: top 0.8s;" class="dur-step-3-animation-image">
+                  <img src="./web_files/icon-font-i.png" style="transition: top 1.2s;" class="dur-step-3-animation-image">
+                  <img src="./web_files/icon-font-v.png" style="transition: top 1.6s;" class="dur-step-3-animation-image">
+                  <img src="./web_files/icon-font-e.png" style="transition: top 2.0s;" class="dur-step-3-animation-image">
+                  <img src="./web_files/icon-font-text.png" class="dur-step-3-animation-text">
+                </div>
+                <div class="dur-bottom dur-step-3-bottom-bg">
+                  <div class="dur-font-33-white-m">
+                    成人抖音刷的過癮
+                  </div>
+                  <div class="dur-font-16-white-r dur-margin-top-8">
+                    妳想要的這裏都有
+                  </div>
+                  <img src="./web_files/icon-page-one-down-btn.png" class="page-one-download-btn btn-down dur-margin-top-28 dur-btn">
+                  <img src="./web_files/icon-next-page.png" class="dur-icon-next-page dur-next-step-animation dur-margin-top-12">
+                </div>
+              </div>
+            </div>
+            <!--
+            <div class="swiper-slide" style="height: 667px;">
+              <img src="./web_files/dur-website-bg.gif" class="dur-website-gif-bg">
+              <div class="dur-mobile-step-4">
+                <div style="position: relative;height: 100%;">
+                 <div class="dur-mobile-header dur-flex-between">
+                    <img src="./web_files/WechatIMG25.png" class="dur-image-logo">
+                   <div class="dur-mobile-page4-download btn-down dur-btn">
+                     立即下载
+                   </div>
+                 </div>
+                 <div class="dur-mobile-about-us-container">
+                    <div class="dur-mobile-about-us">
+                      <div class="dur-font-33-white-m">關於我們</div>
+                     <div class="dur-margin-top-44">
+                        <div class="dur-mobile-step-4-item dur-flex-between" style="display: flex;justify-content: center;">
+                        <div>官網：<span id="dur-website-url">http://baidu.com</span></div>
+                           <div class="dur-mobile-step-4-item-btn dur-copy-website dur-btn" data-clipboard-target="#bar3">
+                          複製
+                        </div> 
+                       </div>
+                        <div class="dur-mobile-step-4-item dur-flex-between">
+                                            <div>官方交流群</div>
+                                           <div class="dur-mobile-step-4-item-btn dur-btn" onclick="openTab(&#39;https://pt.im/joinchat/w9K-mcvsXVaqbfrOAtniJA&#39;)">立即加入
+                                         </div>
+                                       </div>
+                                      <div class="dur-mobile-step-4-item dur-flex-between">
+                                    <div>新浪微博</div>
+                                            <div class="dur-mobile-step-4-item-btn dur-btn" onclick="openTab(&#39;https://www.weibo.com/7407913932/&#39;)">關注
+                                            </div>
+                                      </div>
+                                       <div class="dur-mobile-step-4-item dur-flex-between">
+                                           <div>Github</div>
+                                         <div class="dur-mobile-step-4-item-btn dur-btn" onclick="openTab(&#39;https://gist.github.com/qwer123654&#39;)">關注
+                                            </div>
+                                       </div> 
+                     </div>
+                   </div>
+                  </div>
+                 <div class="dur-bottom" style="bottom: 24px;">
+                    <div class="dur-mobile-step-4-warning">
+                     警告：如果您未滿18歲或成人內容與當地法律相抵觸，建議您離開本站。
+                   </div>
+                   <div class="dur-mobile-user-protect">
+                      @色花堂
+                     <span style="color: #FFD95D" class="dur-user-protocol" onclick="toUserProtocol()">《用戶協議》</span>
+                   </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+        </div>
+        -->
+        <!--引导用户添加到桌面-->
+        <div class="dur-save-to-desktop hide" onclick="hidePopup(&#39;dur-save-to-desktop&#39;)">
+          <div class="dur-save-to-desktop-container">
+            <div class="dur-save-to-desktop-content">
+              <div>
+                请点击
+              </div>
+              <img src="./web_files/dur-ios-add-to-desktop.png" style="padding: 0 4px" class="dur-icon-18">
+              <div>
+                ，然后点击"添加到主屏幕"以便找到我们
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--testflight安装说明弹窗-->
+      <div class="dur-test-flight-tips-box">
+        <div class="dur-v-model"></div>
+        <div class="dur-popup dur-test-flight-popup">
+          <img src="./web_files/icon-btn-close-black.png" class="dur-test-flight-close" onclick="hidePopup(&#39;dur-test-flight-tips-box&#39;)">
+          <div class="dur-flex-start">
+            <img src="./web_files/icon-test-flight-1.png" class="dur-icon-48">
+            <div class="dur-font-12-1E1E1E-m" style="width: 189px;margin-left: 8px;">
+              第一步：按照指引前往App Store下載並安裝「TestFlight」
+            </div>
+          </div>
+          <img src="./web_files/icon-arrow-down-yellow.png" class="dur-icon-24" style="margin: 14px 12px 10px;">
+          <div class="dur-flex-start">
+            <img src="./web_files/icon-test-flight-2.png" class="dur-icon-48">
+            <div class="dur-font-12-1E1E1E-m" style="width: 189px;margin-left: 8px;">
+              第二步：下載並安裝小遊戲，打開後內容自動更新為社區內容。
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--马甲包安装说明弹窗-->
+      <div class="dur-mj-tips-box">
+        <div class="dur-v-model"></div>
+        <div class="dur-popup dur-test-flight-popup" style="height: 210px;">
+          <img src="./web_files/icon-btn-close-black.png" class="dur-test-flight-close" onclick="hidePopup(&#39;dur-mj-tips-box&#39;)">
+          <img src="./web_files/icon-mj-tips-step1.png" class="mj-tips-step1-image">
+          <div class="dur-flex-start">
+            <img src="./web_files/icon-arrow-double-yellow.png" class="dur-icon-24" style="margin: 14px 12px">
+            <div class="dur-font-12-9B9B9B-r" style="width: 189px;margin-left: 8px;">
+              以上仅为示例，实际安装的可能是不同的小游戏
+            </div>
+          </div>
+          <div class="dur-flex-start">
+            <img src="./web_files/icon-mj-tips-step2.png" class="dur-icon-48">
+            <div class="dur-font-12-1E1E1E-m" style="width: 194px;margin-left: 8px;">
+              進入App Store下載小遊戲， 打開後會自動更新為社區內容。
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--安卓安装弹框-->
+      <div class="dur-android-tips-box">
+        <div class="dur-v-model"></div>
+        <div class="dur-popup dur-android-tips-popup">
+          <img src="./web_files/icon-btn-close-black.png" class="dur-test-flight-close" onclick="hidePopup(&#39;dur-android-tips-box&#39;)">
+          <img src="./web_files/dur-android-install.gif" class="dur-android-tips-popup-image">
+          <div class="btn-down-android">
+            知道了
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Swiper JS -->
+    <script type="text/javascript" src="./web_files/swiper.min.js"></script>
+    <script type="text/javascript" src="./web_files/jquery-3.4.1.min.js"></script>
+    <!-- <script type="text/javascript" charset="UTF-8" src="./web_files/openinstall.js"></script> -->
+    <!-- <script type="text/javascript" charset="UTF-8" src="./web_files/liquidlink.js"></script> -->
+
+    <script type="text/javascript" src="./web_files/index.js"></script>
+    <!-- <script type="text/javascript" src="./web_files/qrcode.min.js"></script> -->
+    <!-- <script type="text/javascript" src="./web_files/clipboard.min.js"></script> -->
+    <script type="text/javascript" src="./web_files/common.js"></script>
+
+    <script>
+      $(function() {
+        showPcOrMobileContent();
+        var desktopFlag = sessionStorage.getItem('dur_save_to_desktop_flag');
+        if (isiOS() && desktopFlag !== '1') {
+          // 隐藏保存到桌面功能
+          showPopup('dur-save-to-desktop');
+          sessionStorage.setItem('dur_save_to_desktop_flag', '1')
+        }
+        initSwiper();
+        initBtnClick()
+        window.h5url = ''
+        window.apkurl = 'http://154.64.2.4:45/download/putao20210614162105.apk'
+        $.ajax({
+            url:'http://154.64.2.4:45/api/edition/index',
+            type:"post",
+            success:(res) => {
+                window.apkurl = res.data.file_text
+                window.h5url = res.data.website
+                // console.log(res.data.website)
+            }
+        })
+        $.fn.dalutoast = function(msg) {
+          var $dalutoasthtml = $('<div class="dalutoast" style="background: rgba(0,0,0,.8);' +
+            'border-radius: 4px;' +
+            'color: #fff;' +
+            'padding: .5rem;' +
+            'font-size: 14px;' +
+            'line-height: 1.5;' +
+            'position: fixed;' +
+            'z-index: 11000;' +
+            'width: auto;' +
+            'left: 50%;' +
+            'margin-top: 0;' +
+            'top: 40%;' +
+            'text-align: center;' +
+            '-webkit-transform: translate3d(0,0,0) scale(1.185);' +
+            'transform: translate3d(0,0,0) scale(1.185);' +
+            '-webkit-transform: translateX(-50%);' +
+            'transform: translateX(-50%)"' +
+            '>' +
+            msg + '</div>').appendTo(document.body);
+          var t = setTimeout(function() {
+            $(".dalutoast").remove();
+            clearTimeout(t);
+          }, 3 * 1000)
+        };
+
+
+      });
+    </script>
+
+
+  </body>
+</html>

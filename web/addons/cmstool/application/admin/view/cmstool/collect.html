@@ -1,0 +1,230 @@
+<style>
+    .showDescript {
+        color: green;
+        background: #d0cccc;
+        padding: 5px;
+        margin-top: 5px;
+        padding-bottom: 0;
+    }
+
+    .showDescript > p {
+        margin-bottom: 0;
+    }
+
+    .c_type_1, .c_type_2, .c_type_3, .c_type_4,#hidehtml,#myModal{
+        display: none;
+    }
+
+    #property {
+        border: 1px solid #d2d6de;
+        min-height: 50px;
+        padding:5px 15px 10px 15px;
+    }
+
+    #property.grey{
+        background-color: #eeeeee;
+    }
+
+    .layer-footer a,.layer-footer button{
+        margin-left: 30px;
+    }
+
+    .layer-footer a:first-child {
+        margin-left: 0px;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        -webkit-transform：rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        -webkit-transform：rotate(360deg);
+        }
+    }
+    i.rotate{
+        animation: spin 1s infinite linear;
+    }
+</style>
+<div class="panel panel-default panel-intro">
+    <div class="panel-heading">
+        <div class="panel-lead">
+            <dl style="color: green">
+                <dt><em>采集指引</em></dt>
+                <dd>（1）采集分为4种模式，详情请参考模式下面的介绍，不知道怎么填可以参考采集模板。</dd>
+                <dd>（2）url表达式采用正则表达式匹配超链接&lt;a&gt;标签的href属性；排序模式下的url表达式变量可以使用<span style="font-weight: bolder;background: #d0cccc;">\d+</span>或者<span style="font-weight: bolder;background: #d0cccc;">{序号}</span>表示，且必须以http打头</dd>
+                <dd>（3）插件刚刚上线，没有经过许多测试，可能碰到意外阻塞的情况，windows需要手动在任务管理器关闭进程，linux需要kill -9 进程id，可以通过打开thinkphp的runtime/log目录查看错误日志</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="cmstool/collect/start">
+            <div class="form-group">
+                <label for="c-name" class="control-label col-xs-12 col-sm-2">模板名称：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-name" class="form-control" data-rule="required" name="row[name]" type="text" value="{$temp.name}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">采集模式：</label>
+                <div class="col-xs-12 col-sm-8">
+                    {:Form::radios('row[type]', ['1'=>'单页模式', '2'=>'链接模式', '3'=>'排序模式', 4=>'爬虫模式'], $temp.type)}
+                    <div class="showDescript c_type_1">
+                        <p>指定一张网页，采集该网页上的内容</p>
+                    </div>
+                    <div class="showDescript c_type_2">
+                        <p>指定一张网页，收集上面符合url表达式的链接，并采集所有这些链接上的内容</p>
+                    </div>
+                    <div class="showDescript c_type_3">
+                        <p>
+                            指定一个开始与结束的序号，采集相关链接的内容。比如，要采集某新闻链接是从http://test.com/article/100.html到http://test.com/article/10000.html，那么开始序号是100，结束序号是10000，url表达式是http://test.com/article/{序号}.html</p>
+                    </div>
+                    <div class="showDescript c_type_4">
+                        <p>指定一个起始页面，模拟搜索引擎爬虫的原理，不间断收集符合url表达式的链接，并采集所有这些链接上的内容</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group c_type_1 c_type_2 c_type_4">
+                <label for="c-url" class="control-label col-xs-12 col-sm-2 c_type_1 c_type_2">网页地址：</label>
+                <label for="c-url" class="control-label col-xs-12 col-sm-2 c_type_4">起始地址：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-url" class="form-control" name="row[url]" type="text" value="{$temp.url}">
+                </div>
+            </div>
+            <div class="form-group c_type_3">
+                <label for="c-begin" class="control-label col-xs-12 col-sm-2">开始序号：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-begin" class="form-control" name="row[begin]" type="number" value="{$temp.begin}">
+                </div>
+            </div>
+            <div class="form-group c_type_3">
+                <label for="c-end" class="control-label col-xs-12 col-sm-2">结束序号：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-end" class="form-control" name="row[end]" type="number" value="{$temp.end}">
+                </div>
+            </div>
+            <div class="form-group c_type_2 c_type_3 c_type_4">
+                <label for="c-preg" class="control-label col-xs-12 col-sm-2">url表达式：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-preg" class="form-control" name="row[preg]" type="text" value="{$temp.preg}">
+                    <div class="showDescript">
+                        <p>满足采集条件的超链接，使用正则表达式，注意，许多超链接并不是以http打头的，&nbsp;&nbsp;<a href="http://tool.chinaz.com/regex/" target="_blank">正则表达式匹配工具</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group c_type_3 c_type_4">
+                <label for="c-thread" class="control-label col-xs-12 col-sm-2">采集线程数：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <input id="c-thread" class="form-control" name="row[thread]" type="number" value="{$temp.thread}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-thread" class="control-label col-xs-12 col-sm-2">采集引擎：</label>
+                <div class="col-xs-12 col-sm-8">
+                    {:Form::select('row[engine]', ['File'=>'File', 'Mysql'=>'Mysql'], $temp.engine, ['data-rule'=>'required'])}
+                    <div class="showDescript">
+                        <p>小于1000条推荐使用file，超过1000条推荐使用mysql</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">处理方式：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <select name="row[callback]" class="form-control">
+                        {foreach $callback as $value}
+                        <option value="{$value.name}" {if $value.name==$temp.callback}selected{/if}>{$value.title}</option>
+                        {/foreach}
+                    </select>
+                    <div class="showDescript">
+                        <p>可以根据需求自己定义处理方式，目录在addons/cmstool/service/callback</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="c-cookies" class="control-label col-xs-12 col-sm-2">cookies：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <textarea id="c-cookies" name="row[cookies]" class="form-control" placeholder="可以为空，需要登陆的网站必须填写">{$temp.cookies}</textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2">属性配置：</label>
+                <div class="col-xs-12 col-sm-8">
+                    <div id="property">
+                        <dl style="color: green;background: #d0cccc;padding:5px;">
+                            <dt>属性介绍：</dt>
+                            <dd>(1)、后台可以通过属性的key来获取到对应的value值。</dd>
+                            <dd>(2)、如果属性类型为选择器，则获取到的是网页属性选择器下的innerHTML内容，支持css类选择器，id选择器，派生选择器。</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group layer-footer">
+                <label class="control-label col-xs-12 col-sm-2"></label>
+                <div class="col-xs-12 col-sm-8">
+                    <a id="addpropery" class="btn btn-default btn-embossed adddisabled"><i class="fa fa-plus"></i> 添加属性</a>
+                    <button type="submit" id="start" class="btn btn-default btn-embossed"><i class="fa fa-refresh"></i> 开始采集</button>
+                    <a id="stop" class="btn btn-default btn-embossed"><i class="fa fa-stop"></i> 停止采集</a>
+                    <a id="queue" class="btn btn-default btn-embossed"><i class="fa fa-book"></i> 采集队列</a>
+                    <a id="changeTemp" class="btn btn-default btn-embossed adddisabled"><i class="fa fa-check-square"></i> 管理模板</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="hidehtml">
+    <div class="row" style="margin-top:5px;">
+        <div class="col-sm-4">
+            <input class="form-control" type="text" name="row[pkey][]" readonly value="{pkey}">
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control" type="text" name="row[pvalue][]" readonly value="{pvalue}">
+        </div>
+        <div class="col-sm-2"><a class="btn btn-primary adddisabled" onclick="deleteProperty('{_pkey}',this);">删除属性</a>
+        </div>
+    </div>
+</div>
+<div id="myModal">
+    <form class="form-horizontal" name="{propertype}">
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3">
+                属性类型：
+            </label>
+            <div class="col-xs-12 col-sm-8">
+                <select class="form-control">
+                    <option value="1">
+                        选择器
+                    </option>
+                    <option value="2">
+                        固定值
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3">
+                key：
+            </label>
+            <div class="col-xs-12 col-sm-8">
+                <input class="form-control" type="text" value=""/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-3">
+                value：
+            </label>
+            <div class="col-xs-12 col-sm-8">
+                <input class="form-control" type="text" value=""/>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    var _data={$temp.property};
+    var outproperty=[];
+    if(_data.length>0){
+        for(var i=0;i<_data.length;i++){
+            outproperty.push({pkey:_data[i]['key'],pvalue:_data[i]['value']});
+        }
+    }
+</script>

@@ -1,0 +1,90 @@
+@keyframes next_step
+{
+    0%    {opacity:1}
+    25%   {opacity:0.75}
+    50%   {opacity:0.5}
+    75%   {opacity:0.25}
+    100%  {opacity:0}
+}
+
+@-moz-keyframes next_step /* Firefox */
+{
+    0%    {opacity:1}
+    25%   {opacity:0.75}
+    50%   {opacity:0.5}
+    75%   {opacity:0.25}
+    100%  {opacity:0}
+}
+
+@-webkit-keyframes next_step /* Safari and Chrome */
+{
+    0%    {opacity:1}
+    25%   {opacity:0.75}
+    50%   {opacity:0.5}
+    75%   {opacity:0.25}
+    100%  {opacity:0}
+}
+
+@-o-keyframes next_step /* Opera */
+{
+    0%    {opacity:1}
+    25%   {opacity:0.75}
+    50%   {opacity:0.5}
+    75%   {opacity:0.25}
+    100%  {opacity:0}
+}
+
+.dur-next-step-animation{
+    -webkit-animation: next_step 1.2s infinite linear;
+    animation: next_step 1.2s infinite linear;
+    animation-direction: alternate-reverse;
+    -webkit-animation-direction: alternate-reverse;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+
+@keyframes toShow
+{
+    0%    {opacity:0}
+    25%   {opacity:0.25}
+    50%   {opacity:0.5}
+    75%   {opacity:0.75}
+    100%  {opacity:1}
+}
+
+@-moz-keyframes toShow /* Firefox */
+{
+    0%    {opacity:0}
+    25%   {opacity:0.25}
+    50%   {opacity:0.5}
+    75%   {opacity:0.75}
+    100%  {opacity:1}
+}
+
+@-webkit-keyframes toShow /* Safari and Chrome */
+{
+    0%    {opacity:0}
+    25%   {opacity:0.25}
+    50%   {opacity:0.5}
+    75%   {opacity:0.75}
+    100%  {opacity:1}
+}
+
+@-o-keyframes toShow /* Opera */
+{
+    0%    {opacity:0}
+    25%   {opacity:0.25}
+    50%   {opacity:0.5}
+    75%   {opacity:0.75}
+    100%  {opacity:1}
+}
+
+.dur-step3-image-animation{
+    -webkit-animation: toShow 0.5s infinite linear;
+    animation: toShow 0.5s infinite ease-in-out;
+    transform: translateZ(0);
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    -webkit-transform: translateZ(0);
+}
