@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/web/vendor/karsonzhang/fastadmin-addons" />
+      <path value="$PROJECT_DIR$/web/vendor/karsonzhang/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_karsonzhang_t_1623689358.7095313" />
+      <path value="$PROJECT_DIR$/web/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/web/vendor/markbaker/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_markbaker_t_1623689358.7197242" />
+      <path value="$PROJECT_DIR$/web/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/web/vendor/ralouphie/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_ralouphie_t_1623689358.8377326" />
+      <path value="$PROJECT_DIR$/web/vendor/composer" />
+      <path value="$PROJECT_DIR$/web/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/web/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/web/vendor/guzzlehttp/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_guzzlehttp_t_1623689358.6999147" />
+      <path value="$PROJECT_DIR$/web/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/web/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/web/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-php70" />
+      <path value="$PROJECT_DIR$/web/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-intl-normalizer" />
+      <path value="$PROJECT_DIR$/web/vendor/psr/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_psr_t_1623689358.8286424" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/psr-http-message-bridge" />
+      <path value="$PROJECT_DIR$/web/vendor/doctrine/cache" />
+      <path value="$PROJECT_DIR$/web/vendor/doctrine/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_doctrine_t_1623689358.6741338" />
+      <path value="$PROJECT_DIR$/web/vendor/psr/simple-cache" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/web/vendor/topthink/think-captcha" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/web/vendor/topthink/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_topthink_t_1623689358.8659322" />
+      <path value="$PROJECT_DIR$/web/vendor/phpoffice/phpspreadsheet" />
+      <path value="$PROJECT_DIR$/web/vendor/overtrue/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_overtrue_t_1623689358.765618" />
+      <path value="$PROJECT_DIR$/web/vendor/topthink/think-installer" />
+      <path value="$PROJECT_DIR$/web/vendor/phpoffice/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_phpoffice_t_1623689358.8061862" />
+      <path value="$PROJECT_DIR$/web/vendor/overtrue/pinyin" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/web/vendor/paragonie/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_paragonie_t_1623689358.7753398" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_symfony_t_1623689358.8560472" />
+      <path value="$PROJECT_DIR$/web/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/web/vendor/symfony/options-resolver" />
+      <path value="$PROJECT_DIR$/web/vendor/overtrue/wechat" />
+      <path value="$PROJECT_DIR$/web/vendor/pimple/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_pimple_t_1623689358.8188643" />
+      <path value="$PROJECT_DIR$/web/vendor/overtrue/socialite" />
+      <path value="$PROJECT_DIR$/web/vendor/pimple/pimple" />
+      <path value="$PROJECT_DIR$/web/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/web/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/web/vendor/monolog/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_monolog_t_1623689358.7321706" />
+      <path value="$PROJECT_DIR$/web/vendor/phpmailer/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_phpmailer_t_1623689358.7868688" />
+      <path value="$PROJECT_DIR$/web/vendor/phpqrcode/bindings" />
+      <path value="$PROJECT_DIR$/web/vendor/phpqrcode/cache" />
+      <path value="$PROJECT_DIR$/web/vendor/phpqrcode/tools" />
+      <path value="$PROJECT_DIR$/web/vendor/mtdowling/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_mtdowling_t_1623689358.7419734" />
+      <path value="$PROJECT_DIR$/web/vendor/mtdowling/cron-expression" />
+      <path value="$PROJECT_DIR$/web/vendor/endroid/qr-code" />
+      <path value="$PROJECT_DIR$/web/vendor/endroid/_bt_www_bt_wwwroot_bt_app.ptvod.tv_bt_vendor_bt_endroid_t_1623689358.6879516" />
+    </include_path>
+  </component>
+</project>

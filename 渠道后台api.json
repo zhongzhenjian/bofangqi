@@ -1,0 +1,7 @@
+1.渠道后台登录接口
+地址：http://154.31.62.15/api/channel/login
+请求方式：post表单
+参数：
+username: admin
+password: admin777
+

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d7a6e892-651e-4477-b471-702a8a34b6ec" name="播放器">
+        <fileTransfer accessType="SFTP" host="154.31.62.15" port="2221" sshConfigId="62d5852e-6153-4ab1-8f3d-42c275cfba8c" sshConfig="root@154.31.62.15:2221 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
