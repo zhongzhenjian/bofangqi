@@ -90,12 +90,14 @@ class Admin extends Backend
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $total = $this->model
                 ->where($where)
+                ->where('type','admin')
                 ->where('id', 'in', $this->childrenAdminIds)
                 ->order($sort, $order)
                 ->count();
 
             $list = $this->model
                 ->where($where)
+                ->where('type','admin')
                 ->where('id', 'in', $this->childrenAdminIds)
                 ->field(['password', 'salt', 'token'], true)
                 ->order($sort, $order)
@@ -126,13 +128,19 @@ class Admin extends Backend
                 if (!Validate::is($params['password'], '\S{6,16}')) {
                     $this->error(__("Please input correct password"));
                 }
+
                 $params['salt'] = Random::alnum();
                 $params['password'] = md5(md5($params['password']) . $params['salt']);
                 $params['avatar'] = '/assets/img/avatar.png'; //设置新管理员默认头像。
                 $result = $this->model->validate('Admin.add')->save($params);
+                //$result = $this->model->save($params);
                 if ($result === false) {
                     $this->error($this->model->getError());
                 }
+                //修改type属性
+                $params['type'] = 'admin';
+                $this->model->save($params);
+
                 $group = $this->request->post("group/a");
 
                 //过滤不允许的组别,避免越权

@@ -98,7 +98,7 @@ class Validate
     protected $scene = [];
 
     // 验证失败错误信息
-    protected $error = [];
+    public $error = [];
 
     // 批量验证
     protected $batch = false;

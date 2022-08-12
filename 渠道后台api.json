@@ -1,7 +1,184 @@
-1.渠道后台登录接口
+========================》》》 渠道后台接口 《《《========================
+
+注意：code等于200标识请求成功，其他的均为请求失败，失败的时候msg作为失败提示语
+除了登录接口，其他对接口请求头带上token
+
+1.登录接口
 地址：http://154.31.62.15/api/channel/login
 请求方式：post表单
 参数：
-username: admin
-password: admin777
+username: 用户名，字符串
+password: 密码，字符串
+返回示例：
+{
+    "code": 200,
+    "msg": "Logged in successful",
+    "time": "1660212755",
+    "data": {
+        "userinfo": {
+            "id": 6,
+            "username": "haha",
+            "nickname": "李哈哈",
+            "token": "qd-bcd7ec0c-a9fd-4e85-b17d-36df8f5672fe",
+            "type": "agent3"
+        }
+    }
+}
+
+2.首页接口
+地址：http://154.31.62.15/api/channel/homePage
+请求方式：post表单
+参数：无
+返回示例：
+{
+    "code": 200,
+    "msg": "首页",
+    "time": "1660212762",
+    "data": {
+        "today": {
+            "H5": "100.00",
+            "PC": "300.00"
+        },
+        "yesterday": {
+            "H5": "100.00"
+        },
+        "history": {
+            "H5": "200.00",
+            "PC": "600.00"
+        },
+        "userId": 6,
+        "userName": "haha",
+        "type": "agent3"
+    }
+}
+
+3.登出接口
+地址：http://154.31.62.15/api/channel/logout
+请求方式：post表单
+参数：无
+返回示例：
+{
+    "code": 401,
+    "msg": "请登录后操作",
+    "time": "1660213716",
+    "data": null
+}
+
+4.添加一级代理接口
+地址：http://154.31.62.15/api/channel/addAgent1
+请求方式：post表单
+参数：
+username: 用户名，字符串
+password: 密码，字符串
+nickname: 昵称，字符串
+commission: 提成比例1~100的整数
+deductions: 订单扣量比例，每{deductions}，减少*笔
+deductions_diff: 订单扣量比例，没*笔，减少{deductions_diff}笔
+返回示例：
+{
+    "code": 0,
+    "msg": "用户名已存在，请重新输入",
+    "time": "1660295976",
+    "data": null
+}
+
+5.添加二级代理接口
+地址：http://154.31.62.15/api/channel/addAgent2
+请求方式：post表单
+参数：
+username: 用户名，字符串
+password: 密码，字符串
+nickname: 昵称，字符串
+commission: 提成比例1~100的整数
+deductions_diff: 订单扣量比例，没*笔，减少{deductions_diff}笔
+up_agent: 一级代理id，如果是管理员添加二级代理，需要具体传参，如果是一级代理添加二级代理，此参数传空
+返回示例：
+{
+    "code": 0,
+    "msg": "用户名已存在，请重新输入",
+    "time": "1660305459",
+    "data": null
+}
+
+6.添加三级代理接口
+地址：http://154.31.62.15/api/channel/addAgent3
+请求方式：post表单
+参数：
+username: 用户名，字符串
+password: 密码，字符串
+nickname: 昵称，字符串
+commission: 提成比例1~100的整数
+deductions_diff: 订单扣量比例，没*笔，减少{deductions_diff}笔
+up_agent: 二级代理id，如果是管理员添加三级代理，需要具体传参，如果是二级代理添加二级代理，此参数传空
+返回示例：
+{
+    "code": 0,
+    "msg": "用户名已存在，请重新输入",
+    "time": "1660305459",
+    "data": null
+}
+
+7.用户管理接口
+地址：http://154.31.62.15/api/channel/userList
+请求方式：post表单
+参数：
+id: **ID，字符串
+username: **名称，字符串
+current: 页码
+every: 每页数量
+type: 用户列表类型，管理员查询的时候有三种值:agent1、agent2、agent3，非管理员查询传空
+返回示例：
+{
+    "code": 200,
+    "msg": "用户管理",
+    "time": "1660328473",
+    "data": {
+        "total": 3,
+        "list": [
+            {
+                "id": 33,
+                "username": "clear33",
+                "commission": 20,
+                "login": 0,
+                "logintime": null,
+                "status": "normal",
+                "type": "agent3"
+            },
+            {
+                "id": 32,
+                "username": "clear32",
+                "commission": 20,
+                "login": 0,
+                "logintime": null,
+                "status": "normal",
+                "type": "agent3"
+            }
+        ]
+    }
+}
+
+8.获取用户信息
+地址：http://154.31.62.15/api/channel/getUserInfo
+请求方式：post表单
+参数：
+id: 用户id
+返回示例：
+{
+    "code": 200,
+    "msg": "用户信息",
+    "time": "1660330728",
+    "data": {
+        "userinfo": {
+            "id": 33,
+            "username": "clear33",
+            "qq": null,
+            "mobile": null,
+            "payee": null,
+            "account": null,
+            "commission": 20,
+            "deductions": 10,
+            "deductions_diff": 1
+        }
+    }
+}
 

@@ -47,6 +47,10 @@ class Auth extends \fast\Auth
             $this->setError('Admin is forbidden');
             return false;
         }
+        if ($admin['type'] != 'admin') {
+            $this->setError('管理员不存在');
+            return false;
+        }
         if (Config::get('fastadmin.login_failure_retry') && $admin->loginfailure >= 10 && time() - $admin->updatetime < 86400) {
             $this->setError('Please try again after 1 day');
             return false;

@@ -2,6 +2,7 @@
 
 namespace app\common\library;
 
+use app\admin\model\Admin;
 use app\common\model\User;
 use app\common\model\UserRule;
 use fast\Random;
@@ -11,6 +12,8 @@ use think\Exception;
 use think\Hook;
 use think\Request;
 use think\Validate;
+use function addons\cmstool\service\startWith;
+use function fast\e;
 
 class Auth
 {
@@ -26,7 +29,7 @@ class Auth
     //默认配置
     protected $config = [];
     protected $options = [];
-    protected $allowFields = ['id', 'username', 'nickname', 'mobile', 'avatar', 'vip_time','num','num_t','score','money'];
+    protected $allowFields = ['id', 'username', 'nickname', 'mobile', 'avatar', 'vip_time','num','num_t','score','money','type'];
 
     public function __construct($options = [])
     {
@@ -90,7 +93,16 @@ class Auth
         }
         $user_id = intval($data['user_id']);
         if ($user_id > 0) {
-            $user = User::get($user_id);
+            //根据token开始开始字符判断是会员登录还是渠道登录 qd-
+            if(strpos($token,'qd-') == 0)
+            {//渠道
+                $user = Admin::get($user_id);
+            }
+            else
+            {//会员
+                $user = User::get($user_id);
+            }
+
             if (!$user) {
                 $this->setError('Account not exist');
                 return false;
@@ -184,6 +196,34 @@ class Auth
             Db::rollback();
             return false;
         }
+        return true;
+    }
+
+    /**
+     * 渠道登录
+     */
+    public function ChannelLogin($username, $password)
+    {
+        $field = Validate::is($username, 'username') ? 'email' : (Validate::regex($username, '/^1\d{10}$/') ? 'username' : 'username');
+
+        $user = Admin::get([$field => $username]);
+        if (!$user) {
+            $this->setError('Account is incorrect');
+            return false;
+        }
+
+        if ($user->status != 'normal') {
+            $this->setError('Account is locked');
+            return false;
+        }
+        if ($user->password != $this->getEncryptPassword($password, $user->salt)) {
+            $this->setError('Password is incorrect');
+            return false;
+        }
+
+        //直接登录
+        $this->ChannelDirect($user->id);
+
         return true;
     }
 
@@ -307,6 +347,49 @@ class Auth
                 $this->_user = $user;
 
                 $this->_token = Random::uuid();
+                Token::set($this->_token, $user->id, $this->keeptime);
+
+                $this->_logined = true;
+
+                //登录成功的事件
+                Hook::listen("user_login_successed", $this->_user);
+                Db::commit();
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->setError($e->getMessage());
+                return false;
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 渠道登录账号
+     * @param int $user_id
+     * @return boolean
+     */
+    public function ChannelDirect($user_id)
+    {
+        $user = Admin::get($user_id);
+        if ($user) {
+            Db::startTrans();
+            try {
+                $ip = request()->ip();
+                $time = time();
+
+                //记录本次登录的IP和时间
+                $user->loginip = $ip;
+                $user->logintime = $time;
+                //重置登录失败次数
+                $user->loginfailure = 0;
+
+                $user->save();
+
+                $this->_user = $user;
+
+                $this->_token = 'qd-' . Random::uuid();//渠道用户登录的token标识，以:qd-开头
                 Token::set($this->_token, $user->id, $this->keeptime);
 
                 $this->_logined = true;

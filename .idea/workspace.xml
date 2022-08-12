@@ -19,13 +19,21 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b3883238-5a69-48c0-a0ad-f1b4dbe3a13c" name="Default Changelist" comment="" />
+    <list default="true" id="b3883238-5a69-48c0-a0ad-f1b4dbe3a13c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/admin/controller/auth/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/admin/controller/auth/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/admin/lang/zh-cn/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/admin/lang/zh-cn/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/admin/library/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/admin/library/Auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/common/library/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/common/library/Auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/thinkphp/library/think/Validate.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/thinkphp/library/think/Validate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/渠道后台api.json" beforeDir="false" afterPath="$PROJECT_DIR$/渠道后台api.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/web/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -95,13 +103,17 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/application/api/controller" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/web/application/admin/controller/report" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\XiaoLi\aaWork\github\bofangqi\bofangqi\web\application\admin\controller\report" />
+      <recent name="D:\XiaoLi\aaWork\github\bofangqi\bofangqi\web\application\admin\model" />
+      <recent name="D:\XiaoLi\aaWork\github\bofangqi\bofangqi\web\application\common\model" />
       <recent name="D:\XiaoLi\aaWork\github\bofangqi\bofangqi\web\application\api\controller" />
+      <recent name="D:\XiaoLi\aaWork\github\bofangqi\bofangqi\web\application\admin\controller" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -112,7 +124,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1659896346663</updated>
-      <workItem from="1659896348291" duration="19923000" />
+      <workItem from="1659896348291" duration="40080000" />
+      <workItem from="1660113116681" duration="79667000" />
     </task>
     <servers />
   </component>
@@ -129,6 +142,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="467" y="59" key="#Deployment" timestamp="1659947335743">
@@ -139,21 +153,25 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="567" y="22" key="#SSH_Configurations/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1659947333688" />
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1659961144120">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1660306750473">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1659961144120" />
-    <state x="655" y="155" key="FileChooserDialogImpl" timestamp="1659947208205">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660306750473" />
+    <state x="655" y="155" key="FileChooserDialogImpl" timestamp="1660043045382">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="655" y="155" key="FileChooserDialogImpl/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1659947208205" />
-    <state x="468" y="144" width="600" height="536" key="find.popup" timestamp="1659973735302">
+    <state x="655" y="155" key="FileChooserDialogImpl/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660043045382" />
+    <state x="480" y="189" width="794" height="536" key="find.popup" timestamp="1660336045132">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="468" y="144" width="600" height="536" key="find.popup/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1659973735302" />
+    <state x="480" y="189" width="794" height="536" key="find.popup/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660336045132" />
     <state x="753" y="131" key="ftp.server.browser" timestamp="1659947238111">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="753" y="131" key="ftp.server.browser/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1659947238111" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1660329657599">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660329657599" />
   </component>
 </project>
