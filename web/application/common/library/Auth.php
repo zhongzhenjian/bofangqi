@@ -94,7 +94,7 @@ class Auth
         $user_id = intval($data['user_id']);
         if ($user_id > 0) {
             //根据token开始开始字符判断是会员登录还是渠道登录 qd-
-            if(strpos($token,'qd-') == 0)
+            if(strpos($token,'qd-') === 0)
             {//渠道
                 $user = Admin::get($user_id);
             }

@@ -182,3 +182,111 @@ id: 用户id
     }
 }
 
+9.编辑用户信息
+地址：http://154.31.62.15/api/channel/upUserInfo
+请求方式：post表单
+参数：
+id: 用户id
+qq: QQ
+mobile: 联系电话
+payee: 收款人
+account: 收款账号
+commission: 提成比例
+deductions: 订单扣量比例：每
+deductions_diff: 笔减少
+pwd: 密码(不修改，传空)
+
+返回示例：
+{
+    "code": 200,
+    "msg": "用户信息",
+    "time": "1660371649",
+    "data": {
+        "userinfo": {
+            "id": 33,
+            "username": "clear33",
+            "qq": "qq",
+            "mobile": "mobile",
+            "payee": "payee",
+            "account": "account",
+            "commission": "10",
+            "deductions": 10,
+            "deductions_diff": "0"
+        }
+    }
+}
+
+9.获取APP数据、H5数据、PC数据
+地址：http://154.31.62.15/api/channel/selReport
+请求方式：post表单
+参数：
+id: id
+username: 名称
+beginTime: 开始日期，不能为空，格式：2022-08-10
+endTime: 结束日期，不能为空，格式：2022-08-10
+type: 类型 APP H5 PC，不能为空
+current：页数
+every：每页数量
+
+返回示例：
+{
+    "code": 200,
+    "msg": "H5数据",
+    "time": "1660479219",
+    "data": {
+        "total": 2,
+        "sumPayAmt": "400.00",
+        "sumInstall": "20",
+        "sumArpu": "6",
+        "sumDiffAmt": "40.00",
+        "sumDiffAmtAfter": "360.00",
+        "list": [
+            {
+                "workdate": "2022-08-10",
+                "userid": 12,
+                "username": "test2",
+                "pay_amt": "200.00",
+                "install": 10,
+                "arpu": "3",
+                "diff_amt": "20.00",
+                "diff_amt_after": "180.00",
+                "type": "H5"
+            },
+            {
+                "workdate": "2022-08-10",
+                "userid": 15,
+                "username": "test2",
+                "pay_amt": "200.00",
+                "install": 10,
+                "arpu": "3",
+                "diff_amt": "20.00",
+                "diff_amt_after": "180.00",
+                "type": "H5"
+            }
+        ]
+    }
+}
+
+
+10.获取推广链接
+地址：http://154.31.62.15/api/channel/getPromoteLink
+请求方式：post表单
+参数：无
+返回示例：
+{
+    "code": 200,
+    "msg": "用户信息",
+    "time": "1660648249",
+    "data": {
+        "promoteLink": {
+            "userId": 29,
+            "userName": "clear31",
+            "appLink": "这是app链接",
+            "ldyLink": "这是落地页链接",
+            "h5Link": "这是h5链接",
+            "jhLink": "这还是聚合链接",
+            "upCode": "这个上浮代码",
+            "downCode": "这是下浮代码"
+        }
+    }
+}

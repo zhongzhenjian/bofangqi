@@ -5,6 +5,7 @@ namespace app\api\controller;
 
 
 use app\common\controller\Api;
+use Think\Log;
 use think\Request;
 
 use function GuzzleHttp\json_decode;
@@ -12,7 +13,7 @@ use function GuzzleHttp\json_decode;
 class Order extends Api
 {
     protected $noNeedLogin = ['*'];
-    protected $config = ['domain' => 'http://154.64.2.29:88/', 'pay_memberid' => '220169932','md5Key' => '7310s4b9063zgxm38qnlb5zngsb27fhh', 'tjurl' => 'http://20.187.85.21/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1037', 'alipay'=>'1034', 'wechat'=>'1035'] ];
+    /*protected $config = ['domain' => 'http://154.64.2.29:88/', 'pay_memberid' => '220169932','md5Key' => '7310s4b9063zgxm38qnlb5zngsb27fhh', 'tjurl' => 'http://20.187.85.21/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1037', 'alipay'=>'1034', 'wechat'=>'1035'] ];
 
     //购买会员卡
     public function add(Request $request)
@@ -51,6 +52,52 @@ class Order extends Api
             }
         } else {
             $this->result('系统错误或网络错误', '', 100);
+        }
+    }*/
+
+    //鸽子支付
+    protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1077', 'alipay'=>'1077', 'wechat'=>'1077'] ];
+
+    //购买会员卡
+    public function add(Request $request)
+    {
+        $this->model = new \app\admin\model\Order();
+        if ( ! $request->isPost()) {
+            $this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
+        }
+        $user = $this->auth->getUser();
+        $req = $request->post();
+        // var_dump($req);exit;
+        $req['userid'] = $user['id'];
+        $req['code'] = $this->create_orderid();
+        $postFields = array(
+            "pay_memberid" => $this->config['pay_memberid'],
+            "pay_orderid" => $req['code'],
+            "pay_amount" => $req['price'],
+            "pay_applydate" => date("Y-m-d H:i:s"),
+            "pay_bankcode" => $this->config['pay_bankcode'][$req['pay_type']],
+            "pay_notifyurl" => $this->config['domain'] . 'api/notify/card',
+            "pay_callbackurl" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan?rs=1',
+        );
+        $postFields['pay_md5sign'] = $this->sign($postFields);
+        $postFields['pay_attach'] = $req['userid'];
+        $postFields['pay_productname'] = '用户开通会员';
+        // var_dump(json_encode($postFields));exit;
+
+        Log::record("请求地址：" . $this->config['tjurl'], Log::INFO);
+        Log::record("请求参数：" . json_encode($postFields), Log::INFO);
+        $res = $this->sendRequest($postFields, $this->config['tjurl']);
+        Log::record("返回内容：==========>" . json_encode($res), Log::INFO);
+
+        // var_dump($res);exit;
+        if ($res['status'] == 'success') {
+            $req['out_trade_no'] = $res['out_trade_no'];//上游订单
+            $order = $this->model->allowField(true)->save($req);
+            if ($order) {
+                $this->result('下单成功', $res, 200);
+            }
+        } else {
+            $this->result($res['msg'], '', 100);
         }
     }
 
@@ -114,7 +161,7 @@ class Order extends Api
             "pay_orderid" => $req['code'],
             "pay_amount" => $find['price'],
             "pay_applydate" => date("Y-m-d H:i:s"),
-            "pay_bankcode" => $this->config['pay_bankcode'][$req['pay_type']] ?? '1040',
+            "pay_bankcode" => $this->config['pay_bankcode'][$req['pay_type']],
             "pay_notifyurl" => $this->config['domain'] . 'api/notify/recharge',
             "pay_callbackurl" => $this->config['domain'] . '/h5/#/pages/mine/chongzhi?rs=1',
         );

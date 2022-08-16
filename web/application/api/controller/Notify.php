@@ -7,6 +7,7 @@ namespace app\api\controller;
 use app\admin\model\Ext;
 use app\common\controller\Api;
 use app\common\model\Config;
+use think\Log;
 use think\Request;
 use think\Db;
 
@@ -16,35 +17,60 @@ class Notify extends Api
 {
     protected $noNeedLogin = ['*'];
 
-    protected $config = ['domain' => 'http://154.64.2.29:88/', 'pay_memberid' => '220169932','md5Key' => '7310s4b9063zgxm38qnlb5zngsb27fhh', 'tjurl' => 'http://20.187.85.21/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1037', 'alipay'=>'1034', 'wechat'=>'1035'] ];
+    //protected $config = ['domain' => 'http://154.64.2.29:88/', 'pay_memberid' => '220169932','md5Key' => '7310s4b9063zgxm38qnlb5zngsb27fhh', 'tjurl' => 'http://20.187.85.21/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1037', 'alipay'=>'1034', 'wechat'=>'1035'] ];
+    //鸽子支付
+    protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1062', 'alipay'=>'1062', 'wechat'=>'1062'] ];
+
 
     //会员卡回调
     public function card(Request $request)
     {
         $req = $request->post();
 
+        Log::record("会员卡回调，数据==========》" . json_encode($req), Log::INFO);
+
         // $temp = '{"memberid":"220169932","orderid":"2022011910250102","transaction_id":"20220119224446101481","amount":"50.0000","datetime":"20220119224707","returncode":"00","sign":"673919E19FB2D094E2F37644580AA1D6","attach":"198"}';
         // $req = json_decode($temp, true);
 
-        $q_sign = $req['sign'] ?? '';
+        $q_sign = $req['sign'];
         if(isset($req['sign'])) unset($req['sign']);
         if(isset($req['attach'])) unset($req['attach']);
         $sign = $this->sign($req);
         if($sign != $q_sign){
+            Log::record("会员卡回调，签名错误" , Log::INFO);
             exit('sign error');
         }
-        
+
+        //00表示成功，其它表示失败
+        if($req['returncode'] != '00')
+        {
+            Log::record("会员卡回调，转态不确定" .  $req['returncode'], Log::INFO);
+            exit('非成功状态不处理');
+        }
+
         $find = \app\admin\model\Order::where('code', $req['orderid'])->find();//订单
         $user = \app\admin\model\User::where('id', $find['userid'])->find();//用户
         $card = \app\admin\model\Card::where('id', $find['cardid'])->find();//会员卡
         $arr = Config::where('name', 'like', '%' . 'integral' . '%')->column('value');
+
+        $order = \app\admin\model\Order::where('code', $req['orderid'])->find();
+        if(!$order)
+        {
+            Log::record("会员卡回调，订单不存在" .  $req['orderid'], Log::INFO);
+            exit('订单不存在');
+        }
+        if($order['list'] != '0')
+        {//0-待支付
+            Log::record("会员卡回调，订单已审核完毕" .  $req['orderid'], Log::INFO);
+            exit('ok');
+        }
 
         // 启动事务
         Db::startTrans();
         try{
 
             //订单状态改变
-            $res = \app\admin\model\Order::where('code', $req['orderid'])->update(['list' => 1, 'pay_time' => date('Y-m-d H:i:s')]);
+            $res = \app\admin\model\Order::where('id', $order['id'])->update(['list' => 1, 'pay_time' => date('Y-m-d H:i:s')]);
             if ($res) {
                 //上级代理返利
                 $ext = Ext::where('user_id', $user['id'])->find();//推广
@@ -82,13 +108,23 @@ class Notify extends Api
                     $time = ($card['time'] * 1 * 60 * 60 * 24) + time();
                 }
                 \app\admin\model\User::where('id', $find['userid'])->update(['vip_time' => date('Y-m-d H:i:s', $time)]);
+                Db::commit();//提交事务
+                Log::record("会员卡回调，成功:" . $req['orderid'] , Log::INFO);
+                exit('ok');
+            }
+            else
+            {
+                // 回滚事务
+                Db::rollback();
+                Log::record("会员卡回调，订单处理失败" . $req['orderid'] , Log::INFO);
+                exit('订单处理失败');
             }
         } catch (\Exception $e) {
             // 回滚事务
             Db::rollback();
+            Log::record("会员卡回调，报错" . $req['orderid'] , Log::INFO);
             exit('error');
         }
-        exit('ok');
         // $this->success('回调成功', '', 200);
     }
 
