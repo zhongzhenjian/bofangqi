@@ -189,14 +189,13 @@ class User extends Api
             if(!$agent || $agent['type'] != 'agent3')
                 $this->error('推广码不存在');
 
-            $agentLevel = $agent['level'] . '|' . $agent . '|';
+            $agentLevel = $agent['level'] . '|' . $agent['id'] . '|';
         }
 
         $ret = $this->auth->register($username, $password, '', $mobile, $extends,$agentLevel);
         if ($ret) {
             $data = ['userinfo' => $this->auth->getUserinfo()];
-
-            $this->success(__('Sign up successful'), $data);
+            $this->success(__('Sign up successful'), $data, 200);
         } else {
             $this->error($this->auth->getError());
         }

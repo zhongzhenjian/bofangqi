@@ -21,11 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b3883238-5a69-48c0-a0ad-f1b4dbe3a13c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/application/api/controller/Channel.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/Channel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/api/controller/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/Order.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/application/api/controller/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/application/common/library/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/common/library/Auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/public/assets/js/backend/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/public/assets/js/backend/user/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/渠道后台api.json" beforeDir="false" afterPath="$PROJECT_DIR$/渠道后台api.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/public/assets/js/backend/order/order.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/public/assets/js/backend/order/order.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +124,7 @@
       <workItem from="1659896348291" duration="40080000" />
       <workItem from="1660113116681" duration="79667000" />
       <workItem from="1660354988331" duration="55013000" />
-      <workItem from="1660731058556" duration="7542000" />
+      <workItem from="1660731058556" duration="15070000" />
     </task>
     <servers />
   </component>

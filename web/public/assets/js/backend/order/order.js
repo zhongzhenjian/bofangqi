@@ -43,6 +43,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 							formatter: Table.api.formatter.status,
 							searchList: {'0': __('待支付'), '1': __('已支付'), '2': "支付失败"}
 						},
+						{field: 'agentlevel', title: __('代理层级'), operate: 'LIKE'},
 						{field: 'create_time', title: __('Create_time'), operate: 'RANGE', addclass: 'datetimerange'},
 						{field: 'pay_time', title: __('Pay_time'), operate: 'RANGE', addclass: 'datetimerange'},
 						{field: 'image', title: __('支付二维码'), events: Table.api.events.image, formatter: Table.api.formatter.image},

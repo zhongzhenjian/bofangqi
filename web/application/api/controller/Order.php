@@ -70,6 +70,9 @@ class Order extends Api
         // var_dump($req);exit;
         $req['userid'] = $user['id'];
         $req['code'] = $this->create_orderid();
+        $req['agentlevel'] = $user['agentlevel'];//代理层级
+        $req['cardid'] = $req['list_id'];
+
         $postFields = array(
             "pay_memberid" => $this->config['pay_memberid'],
             "pay_orderid" => $req['code'],
@@ -155,6 +158,7 @@ class Order extends Api
         $req['cardid'] = $req['list_id'];
         $req['price'] = $find['price'];
         $req['code'] = $this->create_orderid();
+        $req['agentlevel'] = $user['agentlevel'];//代理层级
 
         $postFields = array(
             "pay_memberid" => $this->config['pay_memberid'],
@@ -182,7 +186,7 @@ class Order extends Api
                 $this->result('下单成功', $res, 200);
             }
         } else {
-            $this->result('系统错误或网络错误', '', 100);
+            $this->result($res['msg'], '', 100);
         }
     }
 
