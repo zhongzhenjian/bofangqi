@@ -290,3 +290,17 @@ every：每页数量
         }
     }
 }
+
+11.删除用户
+地址：http://154.31.62.15/api/channel/delUserInfo
+请求方式：post表单
+参数：
+id: id
+
+返回示例：
+{
+    "code": 200,
+    "msg": "删除用户",
+    "time": "1660479219",
+    "data": null
+}

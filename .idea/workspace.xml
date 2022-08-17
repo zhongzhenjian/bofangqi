@@ -22,9 +22,9 @@
     <list default="true" id="b3883238-5a69-48c0-a0ad-f1b4dbe3a13c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/application/api/controller/Channel.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/Channel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/application/api/controller/Notify.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/Notify.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/application/api/controller/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/application/api/controller/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/api/controller/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/application/common/library/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/web/application/common/library/Auth.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/public/assets/js/backend/user/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/web/public/assets/js/backend/user/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/渠道后台api.json" beforeDir="false" afterPath="$PROJECT_DIR$/渠道后台api.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -125,7 +125,8 @@
       <updated>1659896346663</updated>
       <workItem from="1659896348291" duration="40080000" />
       <workItem from="1660113116681" duration="79667000" />
-      <workItem from="1660354988331" duration="50430000" />
+      <workItem from="1660354988331" duration="55013000" />
+      <workItem from="1660731058556" duration="7542000" />
     </task>
     <servers />
   </component>
@@ -161,10 +162,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="655" y="155" key="FileChooserDialogImpl/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660043045382" />
-    <state x="480" y="189" width="814" height="536" key="find.popup" timestamp="1660666797966">
+    <state x="480" y="189" width="814" height="536" key="find.popup" timestamp="1660740955320">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="480" y="189" width="814" height="536" key="find.popup/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660666797966" />
+    <state x="480" y="189" width="814" height="536" key="find.popup/0.0.1536.824/-1920.-91.1920.1040@0.0.1536.824" timestamp="1660740955320" />
     <state x="753" y="131" key="ftp.server.browser" timestamp="1659947238111">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -50,6 +50,10 @@ class Channel extends Api
         }
         $ret = $this->auth->ChannelLogin($username, $password);
         if ($ret) {
+            //登录次数+1
+            $model = new AdminModel();
+            $id = $this->auth->getUserinfo()['id'];
+            $model->Query("update fa_admin set login = login + 1 where id = '$id'" );
 
             $userinfo['id'] = $this->auth->getUserinfo()['id'];
             $userinfo['username'] = $this->auth->getUserinfo()['username'];
@@ -433,7 +437,9 @@ class Channel extends Api
         // 筛选条件
         $where = [];
 
-        //$where['id'] = ['in', $ids];
+        $normal = 'normal';
+        $hidden = 'hidden';
+        $where['status'] = array("in","$normal,$hidden");
 
         //类型，如果不是管理员
         $user = $this->auth->getUserinfo();
@@ -514,6 +520,7 @@ class Channel extends Api
         $data['commission'] = $find['commission'];
         $data['deductions'] = $find['deductions'];
         $data['deductions_diff'] = $find['deductions_diff'];
+        $data['status'] = $find['status'];
 
         $result = ['userinfo' => $data];
 
@@ -537,6 +544,7 @@ class Channel extends Api
         $deductions = $req['deductions'];//订单扣量比例：每
         $deductions_diff = $req['deductions_diff'];//笔减少
         $pwd = $req['pwd'];//密码
+        $status = $req['status'];//状态
 
         $find = AdminModel::get($id);
         if(!$find || ($find['type'] != 'agent1' && $find['type'] != 'agent2' && $find['type'] != 'agent3'))
@@ -582,6 +590,7 @@ class Channel extends Api
         $find['payee'] = $payee;
         $find['account'] = $account;
         $find['commission'] = $commission;
+        $find['status'] = $status;
         if('agent1' == $find['type'])
         {//只能编辑一级代理总扣量信息
             $find['deductions'] = $deductions;
@@ -604,7 +613,8 @@ class Channel extends Api
                 'commission'=>  $find['commission'],
                 'deductions'=>  $find['deductions'],
                 'deductions_diff'=>  $find['deductions_diff'],
-                'password'=>  $find['password']
+                'password'=>  $find['password'],
+                'status' => $find['status']
             ]);
         if (!$update) {
             $this->error('修改失败，信息未变更');
@@ -630,6 +640,42 @@ class Channel extends Api
         $result = ['userinfo' => $data];
 
         $this->result('用户信息', $result, 200);
+    }
+
+    //编辑用户信息
+    public function delUserInfo(Request $request)
+    {
+        if ( ! $request->isPost()) {
+            $this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
+        }
+        $req = $request->post();
+
+        $id = $req['id'];//ID
+
+        $find = AdminModel::get($id);
+        if(!$find || ($find['type'] != 'agent1' && $find['type'] != 'agent2' && $find['type'] != 'agent3'))
+        {
+            $this->error('用户id存在');
+        }
+
+        //类型，如果不是管理员 上级必须是登录用户id，否则无权查询
+        $user = $this->auth->getUserinfo();
+        if('admin' != $user['type'] && $find['up_agent'] != $user['id'])
+        {
+            $this->error('无权删除该用户');
+        }
+
+        $model = new AdminModel();
+
+        $update =$model->where('id',$id)->update(
+            [
+                'status' => 'delete'
+            ]);
+        if (!$update) {
+            $this->error('删除失败，用户不存在');
+        }
+
+        $this->result('删除用户', null, 200);
     }
 
     /**
@@ -746,20 +792,21 @@ class Channel extends Api
             $this->error('当前登录用户无法获取推广链接');
         }
 
-        $model = new PromoteModel();
+/*        $model = new PromoteModel();
 
         $find = $model::get($user['id']);
         if(!$find)
-            $this->error($user['username'] . '['.$user['id'].']未配置推广链接，请联系客服');
+            $this->error($user['username'] . '['.$user['id'].']未配置推广链接，请联系客服');*/
 
-        $data['userId'] = $find['userid'];
+        $data['userId'] = $user['id'];
         $data['userName'] = $user['username'];
-        $data['appLink'] = $find['applink'];
-        $data['ldyLink'] = $find['ldylink'];
-        $data['h5Link'] = $find['h5link'];
-        $data['jhLink'] = $find['jhlink'];
-        $data['upCode'] = $find['upcode'];
-        $data['downCode'] = $find['downcode'];
+        $data['appLink'] = '';
+        $data['ldyLink'] = '';
+
+        $data['h5Link'] = config('host').'h5?id='. $user['id'];
+        $data['jhLink'] = '';
+        $data['upCode'] = '';
+        $data['downCode'] = '';
 
         $result = ['promoteLink' => $data];
 

@@ -43,9 +43,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 	                    {field: 'num_t', title: __('长视频次数'), operate: 'LIKE'},
 	                    {field: 'guanzhu', title: __('TA的关注'), operate: 'false'},
 	                    {field: 'fensi', title: __('粉丝数'), operate: 'false'},
+                        {field: 'agentlevel', title: __('代理层级'), operate: 'LIKE'},
 	                    //{field: 'agent', title: __('代理'), formatter: Table.api.formatter.status, searchList: {'0': __('非'), '1': __('是')}},
-	                    {field: 'number', title: __('推广码'), operate: 'LIKE'},
-	                    {field: 'photo', title: __('二维码'), events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},
+	                    //{field: 'number', title: __('推广码'), operate: 'LIKE'},
+	                    //{field: 'photo', title: __('二维码'), events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},
 	                    {field: 'createtime', title: __('注册时间'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
 	                    {field: 'status', title: __('Status'), formatter: Table.api.formatter.status, searchList: {normal: __('Normal'), hidden: __('Hidden')}},
 	                    {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}

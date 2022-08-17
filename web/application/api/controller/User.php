@@ -14,6 +14,7 @@ use think\Cache;
 use think\Request;
 use think\Validate;
 use app\admin\model\User as Usermodel;
+use app\admin\model\Admin as AdminModel;
 use think\Db;
 
 /**
@@ -161,7 +162,7 @@ class User extends Api
     {
         $chang = Config::where('name', 'zcc')->value('value');
         $duan = Config::where('name', 'tvideo')->value('value');
-        $username = 'Rosetang_' . mt_rand(1000, 9999);
+        $username = 'Rose_' . mt_rand(1000000, 9999999);
         $password = $this->request->request('password');
         $mobile = $this->request->request('mobile');
         $t_number = $this->request->request('t_number');
@@ -182,12 +183,19 @@ class User extends Api
         if ($mobile && ! Validate::regex($mobile, "^1\d{10}$")) {
             $this->error(__('Mobile is incorrect'));
         }
-        $ret = $this->auth->register($username, $password, '', $mobile, $extends);
+        $agentLevel = '';
+        if (null !== $t_number && !empty($t_number)) {
+            $agent = AdminModel::get($t_number);
+            if(!$agent || $agent['type'] != 'agent3')
+                $this->error('推广码不存在');
+
+            $agentLevel = $agent['level'] . '|' . $agent . '|';
+        }
+
+        $ret = $this->auth->register($username, $password, '', $mobile, $extends,$agentLevel);
         if ($ret) {
             $data = ['userinfo' => $this->auth->getUserinfo()];
-            if (null !== $t_number && !empty($t_number)) {
-                $this->tg($t_number, $data['userinfo']['id']);
-            }
+
             $this->success(__('Sign up successful'), $data);
         } else {
             $this->error($this->auth->getError());
@@ -334,7 +342,7 @@ class User extends Api
         }
     }
 
-    //推广返利
+    //推广返利 暂时不需要，统一走渠道后台
     public function tg($t_number, $userid)
     {
         $t_user = Usermodel::where('number', $t_number)->find();

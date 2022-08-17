@@ -133,9 +133,10 @@ class Auth
      * @param string $email    邮箱
      * @param string $mobile   手机号
      * @param array  $extend   扩展参数
+     *  * @param string $agentLevel 代理层级
      * @return boolean
      */
-    public function register($username, $password, $email = '', $mobile = '', $extend = [])
+    public function register($username, $password, $email = '', $mobile = '', $extend = [],$agentLevel = '')
     {
         // 检测用户名或邮箱、手机号是否存在
         if (User::getByUsername($username)) {
@@ -162,6 +163,7 @@ class Auth
             'level'    => 1,
             'score'    => 0,
             'avatar'   => '',
+            'agentlevel'   => $agentLevel,
         ];
         $params = array_merge($data, [
             'nickname'  => $username,
