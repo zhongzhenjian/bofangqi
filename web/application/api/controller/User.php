@@ -162,7 +162,7 @@ class User extends Api
     {
         $chang = Config::where('name', 'zcc')->value('value');
         $duan = Config::where('name', 'tvideo')->value('value');
-        $username = 'Rose_' . mt_rand(1000000, 9999999);
+        $username = 'Rose_' . mt_rand(10000, 99999999);
         $password = $this->request->request('password');
         $mobile = $this->request->request('mobile');
         $t_number = $this->request->request('t_number');

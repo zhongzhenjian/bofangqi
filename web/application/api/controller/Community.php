@@ -406,6 +406,10 @@ class Community extends Api
     //观看视频
     public function edit(Request $request)
     {
+        //暂时不限制观看视频
+        $this->success('ok', '', 200);
+
+
         if ( ! $request->isPost()) {
             $this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
         }

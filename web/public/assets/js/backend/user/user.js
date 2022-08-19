@@ -44,6 +44,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 	                    {field: 'guanzhu', title: __('TA的关注'), operate: 'false'},
 	                    {field: 'fensi', title: __('粉丝数'), operate: 'false'},
                         {field: 'agentlevel', title: __('代理层级'), operate: 'LIKE'},
+                        {field: 'loginip', title: __('登录IP'), operate: 'LIKE'},
 	                    //{field: 'agent', title: __('代理'), formatter: Table.api.formatter.status, searchList: {'0': __('非'), '1': __('是')}},
 	                    //{field: 'number', title: __('推广码'), operate: 'LIKE'},
 	                    //{field: 'photo', title: __('二维码'), events: Table.api.events.image, formatter: Table.api.formatter.image, operate: false},

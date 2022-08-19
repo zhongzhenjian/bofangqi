@@ -202,7 +202,7 @@ class Channel extends Api
         if($deductions != 0 && ($deductions_diff < 0 || $deductions_diff > $deductions))
             $this->error('订单扣量比例设置有误');
 
-        if ( ! $username || ! $password || ! $nickname || ! $commission) {
+        if ( ! $username || ! $password || ! $nickname || (! $commission && $commission != 0)) {
             $this->error(__('Invalid parameters'));
         }
 
@@ -291,8 +291,20 @@ class Channel extends Api
         if($deductions_diff < 0 || $deductions_diff > $agent['deductions_diff'])
             $this->error('订单扣量比例设置有误!!!');
 
-        if ( ! $username || ! $password || ! $nickname || ! $commission) {
-            $this->error(__('Invalid parameters'));
+        if ( ! $username) {
+            $this->error('username传参不正确');
+        }
+
+        if (  !$password) {
+            $this->error('password传参不正确');
+        }
+
+        if (! $nickname) {
+            $this->error('nickname传参不正确');
+        }
+
+        if ( ! $commission && $commission != 0) {
+            $this->error('commission传参不正确');
         }
 
         if (!Validate::is($password, '\S{6,16}')) {
@@ -381,7 +393,7 @@ class Channel extends Api
         if($deductions_diff < 0 || $deductions_diff > $agent['deductions_diff'])
             $this->error('订单扣量比例设置有误!!!');
 
-        if ( ! $username || ! $password || ! $nickname || ! $commission) {
+        if ( ! $username || ! $password || ! $nickname ||  (! $commission && $commission != 0)) {
             $this->error(__('Invalid parameters'));
         }
 
