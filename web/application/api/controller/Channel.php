@@ -283,10 +283,6 @@ class Channel extends Api
         if($deductions != 0 && ($deductions_diff < 0 || $deductions_diff > $deductions))
             $this->error('订单扣量比例设置有误!!');
 
-        //提成比例不能超过上级
-        if($commission > $agent['commission'])
-            $this->error('提成比例超限制');
-
         //订单扣量比例不能超过上上级
         if($deductions_diff < 0 || $deductions_diff > $agent['deductions_diff'])
             $this->error('订单扣量比例设置有误!!!');
@@ -384,10 +380,6 @@ class Channel extends Api
 
         if($deductions != 0 && ($deductions_diff < 0 || $deductions_diff > $deductions))
             $this->error('订单扣量比例设置有误!!');
-
-        //提成比例不能超过上级
-        if($commission > $agent['commission'])
-            $this->error('提成比例超限制');
 
         //订单扣量比例不能超过上上级
         if($deductions_diff < 0 || $deductions_diff > $agent['deductions_diff'])

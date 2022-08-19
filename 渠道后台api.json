@@ -304,3 +304,34 @@ id: id
     "time": "1660479219",
     "data": null
 }
+
+
+12.设备码注册
+地址：http://154.31.62.15/api/user/deviceRegister
+请求方式：post表单
+参数：
+t_number: 上级id
+deviceCode: 设备码
+
+返回示例：
+{
+    "code": 0,
+    "msg": "推广码不存在",
+    "time": "1660906993",
+    "data": null
+}
+
+13.绑定手机号
+地址：http://154.31.62.15/api/user/blindMobile
+请求方式：post表单
+参数：
+mobile: 手机号
+deviceCode: 设备码
+
+返回示例：
+{
+    "code": 0,
+    "msg": "手机号码已经绑定",
+    "time": "1660911558",
+    "data": null
+}

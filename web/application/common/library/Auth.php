@@ -15,6 +15,8 @@ use think\Validate;
 use function addons\cmstool\service\startWith;
 use function fast\e;
 
+use app\common\model\User as UserModel;
+
 class Auth
 {
     protected static $instance = null;
@@ -136,7 +138,7 @@ class Auth
      *  * @param string $agentLevel 代理层级
      * @return boolean
      */
-    public function register($username, $password, $email = '', $mobile = '', $extend = [],$agentLevel = '')
+    public function register($username, $password, $email = '', $mobile = '', $extend = [],$agentLevel = '', $deviceCode='')
     {
         // 检测用户名或邮箱、手机号是否存在
         if (User::getByUsername($username)) {
@@ -152,6 +154,18 @@ class Auth
             return false;
         }
 
+        if($deviceCode)
+        {
+            $model = new UserModel();
+            $find = $model->where('devicecode', $deviceCode)->find();
+            if($find){
+
+                $this->setError('设备码已经存在');
+                return false;
+            }
+
+        }
+
         $ip = request()->ip();
         $time = time();
 
@@ -164,6 +178,7 @@ class Auth
             'score'    => 0,
             'avatar'   => '',
             'agentlevel'   => $agentLevel,
+            'devicecode'   => $deviceCode,
         ];
         $params = array_merge($data, [
             'nickname'  => $username,
@@ -236,28 +251,37 @@ class Auth
      * @param string $password 密码
      * @return boolean
      */
-    public function login($account, $password)
+    public function login($account, $password, $verify = true)
     {
-        $field = Validate::is($account, 'email') ? 'email' : (Validate::regex($account, '/^1\d{10}$/') ? 'mobile' : 'username');
-        $user = User::get([$field => $account]);
-        if (!$user) {
-            $this->setError('Account is incorrect');
-            return false;
-        }
+        if($verify)
+        {
+            $field = Validate::is($account, 'email') ? 'email' : (Validate::regex($account, '/^1\d{10}$/') ? 'mobile' : 'username');
+            $user = User::get([$field => $account]);
+            if (!$user) {
+                $this->setError('Account is incorrect');
+                return false;
+            }
 
-        if ($user->status != 'normal') {
-            $this->setError('Account is locked');
-            return false;
-        }
-        if ($user->password != $this->getEncryptPassword($password, $user->salt)) {
-            $this->setError('Password is incorrect');
-            return false;
-        }
+            if ($user->status != 'normal') {
+                $this->setError('Account is locked');
+                return false;
+            }
+            if ($user->password != $this->getEncryptPassword($password, $user->salt)) {
+                $this->setError('Password is incorrect');
+                return false;
+            }
+            //直接登录会员
+            $this->direct($user->id);
 
-        //直接登录会员
-        $this->direct($user->id);
+            return true;
+        }
+        else{
 
-        return true;
+            //直接登录会员
+            $this->direct($account);
+            return true;
+
+        }
     }
 
     /**
@@ -313,6 +337,35 @@ class Auth
             return true;
         } else {
             $this->setError('Password is incorrect');
+            return false;
+        }
+    }
+
+    /**
+     * 绑定手机号
+     * @return boolean
+     */
+    public function changeMobile($mobile)
+    {
+        if (!$this->_logined) {
+            $this->setError('You are not logged in');
+            return false;
+        }
+
+        //判断
+        if (!$this->_user->mobile) {
+            Db::startTrans();
+            try {
+                $this->_user->save(['mobile' => $mobile]);
+                Db::commit();
+            } catch (Exception $e) {
+                Db::rollback();
+                $this->setError($e->getMessage());
+                return false;
+            }
+            return true;
+        } else {
+            $this->setError('手机号码已经绑定');
             return false;
         }
     }

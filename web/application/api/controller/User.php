@@ -201,6 +201,79 @@ class User extends Api
         }
     }//推广码
 
+    /**
+     * 设备码注册
+     *
+     * @param string $deviceCode 设备码
+     */
+    public function deviceRegister()
+    {
+        $chang = Config::where('name', 'zcc')->value('value');
+        $duan = Config::where('name', 'tvideo')->value('value');
+        $username = 'Rose_' . mt_rand(10000, 99999999);
+        $password = '123456';
+        $mobile = '';
+        $t_number = $this->request->request('t_number');
+        $deviceCode = $this->request->request('deviceCode');
+
+        $avatars = array("1_1588736866.jpg", "2_1588736906.jpg", "3_1588736916.jpg", "4_1588736927.jpg", "5_1588736939.jpg", "7_1588737044.jpg", "8_1588737058.jpg", "10_1588737071.jpg", "11_1588737096.jpg", "12_1588737120.jpg", "13_1588737130.jpg", "14_1588737138.jpg", "15_1588737244.jpg", "16_1588737259.jpg", "17_1588737267.jpg", "18_1588737279.jpg", "19_1588737290.jpg", "20_1588737303.jpg", "21_1588740537.jpg", "22_1588740556.jpg", "23_1588740572.jpg", "24_1588740586.jpg", "26_1588741401.jpg", "27_1588741443.jpg", "28_1588741455.jpg", "29_1588741475.jpg", "31_1588741495.jpg", "32_1588741508.jpg", "33_1588741526.jpg", "34_1588741536.jpg", "35_1588741549.jpg", "36_1588741559.jpg", "37_1588741571.jpg", "38_1588741586.jpg", "39_1588741596.jpg", "40_1588741605.jpg", "41_1588741614.jpg", "42_1588741624.jpg", "43_1588741635.jpg", "44_1588741645.jpg", "45_1588741657.jpg", "46_1588741666.jpg", "47_1588741676.jpg", "48_1588741687.jpg", "49_1588741697.jpg", "50_1588741707.jpg");
+        $avatar = $avatars[array_rand($avatars)];
+        $numeber = $this->creatInvCode();
+        $photo = Code::c_qrcode('http://www.baidu.com', time());
+        $extends = [
+            'number' => $numeber,
+            'avatar' => '/mrtx/' . $avatar,
+            'photo' => $photo,
+            'num' => $chang,
+            'num_t' => $duan
+        ];
+        if ( ! $username || ! $password || !$deviceCode || strlen($deviceCode) < 10 ) {
+            $this->error(__('Invalid parameters'));
+        }
+        /*if ($mobile && ! Validate::regex($mobile, "^1\d{10}$")) {
+            $this->error(__('Mobile is incorrect'));
+        }*/
+        $agentLevel = '';
+        if (null !== $t_number && !empty($t_number)) {
+            $agent = AdminModel::get($t_number);
+            if(!$agent || $agent['type'] != 'agent3')
+                $this->error('推广码不存在');
+
+            $agentLevel = $agent['level'] . '|' . $agent['id'] . '|';
+        }
+
+        $ret = $this->auth->register($username, $password, '', $mobile, $extends,$agentLevel,$deviceCode);
+        if ($ret) {
+            $data = ['userinfo' => $this->auth->getUserinfo()];
+            $this->success('设备码注册成功', $data, 200);
+        } else {
+            //如果是设备码已存在，返回用户信息
+            if($this->auth->getError() == '设备码已经存在')
+            {
+                $this->deviceLogin($deviceCode);
+            }
+            else
+            {
+                $this->error($this->auth->getError());
+            }
+        }
+    }
+
+    /**
+     * 设备码登录
+     *
+     */
+    public function deviceLogin($deviceCode)
+    {
+        $model = new Usermodel();
+        $find = $model->where('devicecode', $deviceCode)->find();
+
+        $this->auth->login($find['id'], '123456', false);
+
+        $data = ['userinfo' => $this->auth->getUserinfo()];
+        $this->success(__('设备码登录成功'), $data, 200);
+    }
+
     public function creatInvCode()
     {
         $code = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";     //随机生成邀请码
@@ -408,5 +481,20 @@ class User extends Api
         $this->result('余额', $res['money'], 200);
     }
 
+    public function blindMobile(Request $request)
+    {
+        $mobile = $request->post("mobile");
+
+        if ( ! Validate::regex($mobile, "^1\d{10}$")) {
+            $this->error(__('Mobile is incorrect') . ':' . $mobile);
+        }
+
+        $ret = $this->auth->changeMobile($mobile);
+        if ($ret) {
+            $this->success('成功绑定号码', null, 200);
+        } else {
+            $this->error($this->auth->getError());
+        }
+    }
 
 }
