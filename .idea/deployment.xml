@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="播放器" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="正式-播放器" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="播放器">
+      <paths name="正式-播放器">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/www/wwwroot/hanuu.cn/web" local="$PROJECT_DIR$/web" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="测试-播放器">
         <serverdata>
           <mappings>
             <mapping deploy="/www/wwwroot/xixi.putao.com/web" local="$PROJECT_DIR$/web" web="/" />

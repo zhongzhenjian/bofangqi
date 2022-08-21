@@ -24,7 +24,7 @@ class Mom extends Backend
     {
         parent::_initialize();
         $this->model = new \app\admin\model\Mom;
-        $list = ['游客', '会员'];
+        $list = ['游客', '会员', 'VIP', '过期VIP'];
         $this->assign('typeList', $list);
 
     }
@@ -83,12 +83,18 @@ class Mom extends Backend
 
             return json($result);
         }
-        $yk = 0;
-        $vip = 0;
+        $yk = 0;//游客
+        $member = 0;//会员
+        $vip = 0;//VIP
+        $gq_vip = 0;//过期VIP
         $yk = $this->model->whereTime('create_time', 'today')->where('class', 0)->count();
-        $vip = $this->model->whereTime('create_time', 'today')->where('class', 1)->count();
+        $member = $this->model->whereTime('create_time', 'today')->where('class', 1)->count();
+        $vip = $this->model->whereTime('create_time', 'today')->where('class', 2)->count();
+        $gq_vip = $this->model->whereTime('create_time', 'today')->where('class', 3)->count();
         $this->view->assign('yk', $yk);
+        $this->view->assign('member', $member);
         $this->view->assign('vip', $vip);
+        $this->view->assign('gq_vip', $gq_vip);
         return $this->view->fetch();
     }
 }
