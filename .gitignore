@@ -1,1 +1,5 @@
+web/application/database.php
+web/.idea
+web/runtime
+.idea/*
 .idea
