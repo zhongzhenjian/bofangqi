@@ -1,8 +1,6 @@
 web/application/database.php
 web/.idea
 web/runtime
-/.idea/*
-/.idea
-/.idea/workspace.xml
+.idea
 web/application/config.php
 
