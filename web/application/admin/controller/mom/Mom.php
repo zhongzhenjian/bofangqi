@@ -74,10 +74,11 @@ class Mom extends Backend
                 ->limit($offset, $limit)
                 ->select();
 
-//            foreach ($list as $row) {
-//
-//                $row->getRelation('user')->visible(['username']);
-//            }
+            foreach ($list as $row) {
+                $row->getRelation('user')->visible(['mobile']);
+                $row->getRelation('user')->visible(['username']);
+                $row->getRelation('user')->visible(['username']);
+            }
             $list = collection($list)->toArray();
             $result = array("total" => $total, "rows" => $list);
 

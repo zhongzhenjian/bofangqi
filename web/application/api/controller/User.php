@@ -22,7 +22,7 @@ use think\Db;
  */
 class User extends Api
 {
-    protected $noNeedLogin = ['*'];
+    protected $noNeedLogin = ['login','sendMsm','post','register','deviceRegister','deviceLogin'];
     protected $noNeedRight = '*';
 
     public function _initialize()

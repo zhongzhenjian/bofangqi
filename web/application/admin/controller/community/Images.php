@@ -97,13 +97,79 @@ class Images extends Backend
     //添加
     public function add()
     {
+
+
+        if ($this->request->isPost()) {
+            $params = $this->request->post("row/a");
+
+            if ($params) {
+                $params = $this->preExcludeFields($params);
+
+                if ($this->dataLimit && $this->dataLimitFieldAutoFill) {
+                    $params[$this->dataLimitField] = $this->auth->id;
+                }
+                $result = false;
+                Db::startTrans();
+                try {
+                    //是否采用模型验证
+                    if ($this->modelValidate) {
+                        $name = str_replace("\\model\\", "\\validate\\", get_class($this->model));
+                        $validate = is_bool($this->modelValidate) ? ($this->modelSceneValidate ? $name . '.add' : $name) : $this->modelValidate;
+                        $this->model->validateFailException(true)->validate($validate);
+                    }
+                    $all = suiji();
+                    $params['name'] = $all['name'];
+                    $params['avator_image'] = $all['image'];
+                    $params['user_id'] = $all['id'];
+                    $params['fabulous'] = mt_rand(50,350);
+                    $params['browse'] = mt_rand(864,1872);
+                    $result = $this->model->allowField(true)->insertGetId($params);
+                    if(config('site.auto_comment') && isset(input()['comments'])) {
+                        $comment = input()['comments'];
+                        $size = count($comment);
+                        for ($i = 0; $i < $size; $i++) {
+                            $name = file_get_contents('name.txt');//将整个文件内容读入到一个字符串中
+                            $name = json_decode(mb_convert_encoding($name, 'UTF-8', 'UTF-8,GBK,GB2312,BIG5'));//转换字符集（编码）
+                            $name = $name[array_rand($name)];
+                            $photo = file_get_contents('photo.txt');//将整个文件内容读入到一个字符串中
+                            $photo = json_decode(mb_convert_encoding($photo, 'UTF-8', 'UTF-8,GBK,GB2312,BIG5'));//转换字符集（编码）
+                            $photo = $photo[array_rand($photo)];
+                            Comment::insert(['name' => $name, 'avator_image' => $photo, 'content' => $comment[$i], 'community_id' => $result, 'class' => 1,'tong'=>1 ,'creat_time' => date('Y-d-m H:i:s'),'zd'=>1,'level'=>mt_rand(0,2)]);
+                        }
+                    }
+                    Db::commit();
+                } catch (ValidateException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (PDOException $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                } catch (Exception $e) {
+                    Db::rollback();
+                    $this->error($e->getMessage());
+                }
+                if ($result !== false) {
+                    $this->success();
+                } else {
+                    $this->error(__('No rows were inserted'));
+                }
+            }
+            $this->error(__('Parameter %s can not be empty', ''));
+        }
+
         $name = \app\admin\model\Label::column('name');
         $id = \app\admin\model\Label::column('id');
+        $labels = [];
         for ($i = 0; $i < count($name); $i++) {
             $labels[$id[$i]] = $name[$i];
         }
         $this->assign('labels', $labels);
-        return $this->parent_add();
+
+
+        return $this->view->fetch();
+
+
+        //return $this->parent_add();
     }
 
     public function edit($ids = null)
