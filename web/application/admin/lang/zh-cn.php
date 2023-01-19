@@ -129,6 +129,7 @@ return [
     'Unknown data format'                                   => '未知的数据格式!',
     'Network error'                                         => '网络错误!',
     'Invalid parameters'                                    => '未知参数',
+    'Deletion is not currently supported'                   => '暂不支持删除',
     'No results were found'                                 => '记录未找到',
     'No rows were inserted'                                 => '未插入任何行',
     'No rows were deleted'                                  => '未删除任何行',

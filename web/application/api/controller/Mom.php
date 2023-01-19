@@ -11,11 +11,10 @@ use\app\admin\model\Mom as Moms;
 class Mom extends Api
 {
     protected $noNeedLogin = ['*'];//无需登录的方法,同时也就不需要鉴权了
-    protected $noNeedRight = '*';//无需鉴权的方法,但需要登录
+    protected $noNeedRight = ['add'];//无需鉴权的方法,但需要登录
 
     public function add(Request $request)
     {
-        var_dump('111111111111111111');
 
         if ( ! $request->isGet()) {
             $this->error('ＭＵＳＴ　ＢＥ　ＧＥＴ');

@@ -414,7 +414,7 @@ class Auth extends \fast\Auth
         $ruleList = collection(\app\admin\model\AuthRule::where('status', 'normal')
             ->where('ismenu', 1)
             ->order('weigh', 'desc')
-            ->cache("__menu__")
+            //->cache("__menu__")//缓存数据暂时去掉
             ->select())->toArray();
         $indexRuleList = \app\admin\model\AuthRule::where('status', 'normal')
             ->where('ismenu', 0)

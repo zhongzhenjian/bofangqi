@@ -76,4 +76,12 @@ class User extends Backend
         return parent::edit($ids);
     }
 
+    /**
+     * 删除
+     */
+    public function del($ids = "")
+    {
+        $this->error(__('Deletion is not currently supported'));
+    }
+
 }
