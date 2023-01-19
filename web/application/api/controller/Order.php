@@ -5,6 +5,7 @@ namespace app\api\controller;
 
 
 use app\common\controller\Api;
+use think\Exception;
 use Think\Log;
 use think\Request;
 
@@ -55,9 +56,8 @@ class Order extends Api
         }
     }*/
 
-    //鸽子支付
+    /*//鸽子支付
     protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1077', 'alipay'=>'1077', 'wechat'=>'1077'] ];
-
     //购买会员卡
     public function add(Request $request)
     {
@@ -102,7 +102,65 @@ class Order extends Api
         } else {
             $this->result($res['msg'], '', 100);
         }
+    }*/
+
+
+    //艾希支付
+    protected $config = ['domain' => 'http://9i7tao.cn/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
+    //购买会员卡
+    public function add(Request $request)
+    {
+        try {
+            $this->model = new \app\admin\model\Order();
+            if ( ! $request->isPost()) {
+                $this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
+            }
+            $user = $this->auth->getUser();
+            $req = $request->post();
+            // var_dump($req);exit;
+            $req['userid'] = $user['id'];
+            $req['code'] = $this->create_orderid();
+            $req['agentlevel'] = $user['agentlevel'];//代理层级
+            $req['cardid'] = $req['list_id'];
+
+            $postFields = array(
+                "appId" => $this->config['pay_memberid'],//商户账户
+                "appOrderNo" => $req['code'],//订单号
+                "orderAmt" => $req['price'],//金额
+                "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
+                "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
+                "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan?rs=1',//跳转地址
+            );
+
+            $signParameter = array(
+                "appId" => $this->config['pay_memberid'],//商户账户
+                "appOrderNo" => $req['code'],//订单号
+                "orderAmt" => sprintf('%.2F', $req['price']),//金额
+                "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
+            );
+            $postFields['sign'] = $this->sign($signParameter);
+
+            Log::record("艾希请求地址：" . $this->config['tjurl'], Log::INFO);
+            Log::record("艾希请求参数：" . json_encode($postFields), Log::INFO);
+            $res = $this->sendRequest($postFields, $this->config['tjurl']);
+            Log::record("艾希返回内容：==========>" . json_encode($res), Log::INFO);
+
+            // var_dump($res);exit;
+            if ($res['status'] == 'success') {
+                $req['out_trade_no'] = $res['out_trade_no'];//上游订单
+                $order = $this->model->allowField(true)->save($req);
+                if ($order) {
+                    $this->result('下单成功', $res, 200);
+                }
+            } else {
+                $this->result($res['msg'], '', 100);
+            }
+        }catch (Exception $e)
+        {
+            $this->error($e->getMessage());
+        }
     }
+
 
 
     //成为代理
@@ -141,6 +199,8 @@ class Order extends Api
             $this->result('系统错误或网络错误', $res, 100);
         }
     }
+
+    /*//鸽子支付
     public function recharge(Request $request)
     {
         $this->model = new \app\admin\model\Order();
@@ -181,6 +241,60 @@ class Order extends Api
         // var_dump($res);exit;
         if ($res['status'] == 'success') {
             $req['out_trade_no'] = $res['out_trade_no'];//上游订单
+            $order = $this->model->allowField(true)->save($req);
+            if ($order) {
+                $this->result('下单成功', $res, 200);
+            }
+        } else {
+            $this->result($res['msg'], '', 100);
+        }
+    }*/
+
+    //艾希支付
+    public function recharge(Request $request)
+    {
+        $this->model = new \app\admin\model\Order();
+        if ( ! $request->isPost()) {
+            $this->error('ＭＵＳＴ　ＢＥ　ＰＯＳＴ');
+        }
+        $user = $this->auth->getUser();
+        $req = $request->post();
+        $find = \app\admin\model\Paylist::where('id',$req['list_id'])->find();
+        if(!$find){
+            $this->error('列表不存在','',100);
+        }
+
+        $req['userid'] = $user['id'];
+        $req['cardid'] = $req['list_id'];
+        $req['price'] = $find['price'];
+        $req['code'] = $this->create_orderid();
+        $req['agentlevel'] = $user['agentlevel'];//代理层级
+
+        $postFields = array(
+            "appId" => $this->config['pay_memberid'],//商户账户
+            "appOrderNo" => $req['code'],//订单号
+            "orderAmt" => $req['price'],//金额
+            "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
+            "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
+            "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan?rs=1',//跳转地址
+        );
+
+        $signParameter = array(
+            "appId" => $this->config['pay_memberid'],//商户账户
+            "appOrderNo" => $req['code'],//订单号
+            "orderAmt" => sprintf('%.2F', $req['price']),//金额
+            "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
+        );
+        $postFields['sign'] = $this->sign($signParameter);
+
+        Log::record("艾希请求地址：" . $this->config['tjurl'], Log::INFO);
+        Log::record("艾希请求参数：" . json_encode($postFields), Log::INFO);
+        $res = $this->sendRequest($postFields, $this->config['tjurl']);
+        Log::record("艾希返回内容：==========>" . json_encode($res), Log::INFO);
+
+        // var_dump($res);exit;
+        if ($res['code'] == '0000') {
+            $req['out_trade_no'] = $res['data']['orderNo'];//上游订单
             $order = $this->model->allowField(true)->save($req);
             if ($order) {
                 $this->result('下单成功', $res, 200);
