@@ -122,6 +122,7 @@ class Order extends Api
             $req['code'] = $this->create_orderid();
             $req['agentlevel'] = $user['agentlevel'];//代理层级
             $req['cardid'] = $req['list_id'];
+            $req['appId'] = $this->config['pay_memberid'];
 
             $postFields = array(
                 "appId" => $this->config['pay_memberid'],//商户账户
@@ -146,11 +147,12 @@ class Order extends Api
             Log::record("艾希返回内容：==========>" . json_encode($res), Log::INFO);
 
             // var_dump($res);exit;
-            if ($res['status'] == 'success') {
-                $req['out_trade_no'] = $res['out_trade_no'];//上游订单
+            if ($res['code'] == '0000') {
+                $req['out_trade_no'] = $res['data']['orderNo'];//上游订单
+                $ret['url'] = $res['data']['payUrl'];//支付链接
                 $order = $this->model->allowField(true)->save($req);
                 if ($order) {
-                    $this->result('下单成功', $res, 200);
+                    $this->result('下单成功', $ret, 200);
                 }
             } else {
                 $this->result($res['msg'], '', 100);
@@ -269,6 +271,7 @@ class Order extends Api
         $req['price'] = $find['price'];
         $req['code'] = $this->create_orderid();
         $req['agentlevel'] = $user['agentlevel'];//代理层级
+        $req['appId'] = $this->config['pay_memberid'];
 
         $postFields = array(
             "appId" => $this->config['pay_memberid'],//商户账户
@@ -295,9 +298,12 @@ class Order extends Api
         // var_dump($res);exit;
         if ($res['code'] == '0000') {
             $req['out_trade_no'] = $res['data']['orderNo'];//上游订单
+
+            $ret['url'] = $res['data']['payUrl'];//支付链接
+
             $order = $this->model->allowField(true)->save($req);
             if ($order) {
-                $this->result('下单成功', $res, 200);
+                $this->result('下单成功', $ret, 200);
             }
         } else {
             $this->result($res['msg'], '', 100);

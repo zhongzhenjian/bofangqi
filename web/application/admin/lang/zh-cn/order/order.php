@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'Code'          => '订单编号',
+    'Code'          => '系统订单号',
     'Userid'        => '用户id',
     'Cardid'        => '会员卡id',
     'Pay_type'      => '付款方式',
@@ -10,5 +10,6 @@ return [
     'Create_time'   => '创建时间',
     'Pay_time'      => '支付时间',
     'User.username' => '用户名',
-    'Vipcard.name'  => '描述'
+    'Vipcard.name'  => '描述',
+    'OutTradeNo'  => '上游订单号'
 ];

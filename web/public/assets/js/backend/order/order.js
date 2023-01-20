@@ -35,6 +35,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 							formatter: Table.api.formatter.status,
 							searchList: {'wechat': __('微信'), 'alipay': __('支付宝')}
 						},
+						{field: 'out_trade_no', title: __('OutTradeNo')},
 						{field: 'vipcard.name', title: __('Vipcard.name')},
 						{field: 'price', title: __('Price'), operate: 'BETWEEN'},
 						{
@@ -42,6 +43,12 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 							title: __('状态'),
 							formatter: Table.api.formatter.status,
 							searchList: {'0': __('待支付'), '1': __('已支付'), '2': "支付失败"}
+						},
+						{
+							field: 'appId',
+							title: __('上游'),
+							formatter: Table.api.formatter.status,
+							searchList: {'20211645': __('艾希支付')}
 						},
 						{field: 'agentlevel', title: __('代理层级'), operate: 'LIKE'},
 						{field: 'create_time', title: __('Create_time'), operate: 'RANGE', addclass: 'datetimerange'},
