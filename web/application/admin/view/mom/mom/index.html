@@ -19,10 +19,10 @@
 <!--                        <a href="javascript:;" class="btn btn-success btn-edit btn-disabled disabled {:$auth->check('mom/mom/edit')?'':'hide'}" title="{:__('Edit')}" ><i class="fa fa-pencil"></i> {:__('Edit')}</a>-->
                         <!--                        <a href="javascript:;" class="btn btn-danger btn-del btn-disabled disabled {:$auth->check('mom/mom/del')?'':'hide'}" title="{:__('Delete')}" ><i class="fa fa-trash"></i> {:__('Delete')}</a>-->
 <!--                        <a href="javascript:;" class="btn btn-danger btn-import {:$auth->check('mom/mom/import')?'':'hide'}" title="{:__('Import')}" id="btn-import-file" data-url="ajax/upload" data-mimetype="csv,xls,xlsx" data-multiple="false"><i class="fa fa-upload"></i> {:__('Import')}</a>-->
-                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日登陆游客数：<span id="yk">{$yk}</span></span></a>
-                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日登陆会员数：<span id="member">{$member}</span></span></a>
-                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日登陆VIP数：<span id="vip">{$vip}</span></span></a>
-                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日登陆过期VIP数：<span id="$gq_vip">{$gq_vip}</span></span></a>
+                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日游客登陆数：<span id="yk">{$yk}</span></span></a>
+                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日普通会员登录数：<span id="member">{$member}</span></span></a>
+                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日VIP会员登陆数：<span id="vip">{$vip}</span></span></a>
+                        <a href="javascript:;" class="btn btn-default" style="font-size:14px;color:dodgerblue;"><i class="fa fa-dollar"></i><span class="extend">今日过期VIP登陆数：<span id="$gq_vip">{$gq_vip}</span></span></a>
 
                         <!--                        <div class="dropdown btn-group {:$auth->check('mom/mom/multi')?'':'hide'}">-->
 <!--                            <a class="btn btn-primary btn-more dropdown-toggle btn-disabled disabled" data-toggle="dropdown"><i class="fa fa-cog"></i> {:__('More')}</a>-->

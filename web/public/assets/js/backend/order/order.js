@@ -1,3 +1,22 @@
+
+//此方法返回日期
+function today(AddDayCount) {
+	const dd = new Date();
+	dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+	let y = dd.getFullYear();
+	let m = dd.getMonth()+1;//获取当前月份的日期
+	let d = dd.getDate();
+	//判断月
+	if (m < 10) {
+		m = "0" + m;
+	}
+	//判断日
+	if (d < 10) {
+		d = "0" + d;
+	}
+	return y + "-" + m + "-" + d;
+}
+
 define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
 	
 	var Controller = {
@@ -51,8 +70,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 							searchList: {'20211645': __('艾希支付')}
 						},
 						{field: 'agentlevel', title: __('代理层级'), operate: 'LIKE'},
-						{field: 'create_time', title: __('Create_time'), operate: 'RANGE', addclass: 'datetimerange'},
-						{field: 'pay_time', title: __('Pay_time'), operate: 'RANGE', addclass: 'datetimerange'},
+						{field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime, defaultValue: today(0) + " 00:00:00 - " + today(0) + ' 23:59:59', operate: 'RANGE', addclass: 'datetimerange', sortable: true},
+						{field: 'pay_time', title: __('Pay_time'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
+
+						//{field: 'pay_time', title: __('Pay_time'), operate: 'RANGE', addclass: 'datetimerange'},
 						{field: 'image', title: __('支付二维码'), events: Table.api.events.image, formatter: Table.api.formatter.image},
 						// {
 						// 	field: 'operate',

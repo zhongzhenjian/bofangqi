@@ -1,3 +1,22 @@
+//此方法返回日期
+function today(AddDayCount) {
+    const dd = new Date();
+    dd.setDate(dd.getDate()+AddDayCount);//获取AddDayCount天后的日期
+    let y = dd.getFullYear();
+    let m = dd.getMonth()+1;//获取当前月份的日期
+    let d = dd.getDate();
+    //判断月
+    if (m < 10) {
+        m = "0" + m;
+    }
+    //判断日
+    if (d < 10) {
+        d = "0" + d;
+    }
+    return y + "-" + m + "-" + d;
+}
+
+
 define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
 	$.fn.bootstrapTable.locales[Table.defaults.locale]['formatSearch'] = function(){return "IP地址";};
 
@@ -25,6 +44,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                 columns: [
                     [
                         {checkbox: true},
+                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime, defaultValue: today(0) + " 00:00:00 - " + today(0) + ' 23:59:59', operate: 'RANGE', addclass: 'datetimerange', sortable: true},
                         {field: 'id', title: __('Id')},
                         {field: 'ip', title: __('Ip')},
 	                    {field: 'address', title: __('地址')},
@@ -32,7 +52,7 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 	                    {field: 'user.mobile', title: __('手机号')},
                         {field: 'num', title: __('Num')},
 	                    {field: 'class', title: __('类型'),formatter: Table.api.formatter.status, searchList: {'0': __('游客'), '1': __('会员'), '2': __('VIP'), '3': __('过期VIP')}},
-                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
+
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
@@ -70,4 +90,10 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
         }
     };
     return Controller;
+
+
+
 });
+
+
+
