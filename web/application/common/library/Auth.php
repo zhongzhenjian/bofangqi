@@ -352,6 +352,11 @@ class Auth
             return false;
         }
 
+        if ($mobile && User::getByMobile($mobile)) {
+            $this->setError('Mobile already exist');
+            return false;
+        }
+
         //判断
         if (!$this->_user->mobile) {
             Db::startTrans();
@@ -365,7 +370,7 @@ class Auth
             }
             return true;
         } else {
-            $this->setError('手机号码已经绑定');
+            $this->setError('您的账号已经绑定过手机号码');
             return false;
         }
     }

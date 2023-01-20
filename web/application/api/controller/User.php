@@ -496,13 +496,9 @@ class User extends Api
             $this->error(__('Mobile is incorrect') . ':' . $mobile);
         }
 
-        $ret = $this->auth->changepwd($pwd, '', true);
-        if (!$ret) {
-            $this->error($this->auth->getError());
-        }
-
         $ret = $this->auth->changeMobile($mobile);
         if ($ret) {
+            $this->auth->changepwd($pwd, '', true);
             $this->success('成功绑定号码', null, 200);
         } else {
             $this->error($this->auth->getError());

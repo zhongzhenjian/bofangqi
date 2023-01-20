@@ -13,6 +13,7 @@ return [
     'Username already exist'                => '用户名已经存在',
     'Email already exist'                   => '邮箱已经存在',
     'Mobile already exist'                  => '手机号已经存在',
+    'Account already blind mobile'          => '您的账号已经绑定过手机号码',
     'Username is incorrect'                 => '用户名不正确',
     'Email is incorrect'                    => '邮箱不正确',
     'Account is locked'                     => '账户已经被锁定',
