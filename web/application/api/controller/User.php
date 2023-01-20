@@ -484,9 +484,21 @@ class User extends Api
     public function blindMobile(Request $request)
     {
         $mobile = $request->post("mobile");
+        $pwd = $this->request->request("pwd");
+
+        if(null == $pwd || "" == $pwd)
+            $this->error(__('Password can not be empty'));
+
+        if(strlen($pwd) < 6 || strlen($pwd) > 30)
+            $this->error(__('Password must be 6 to 30 characters'));
 
         if ( ! Validate::regex($mobile, "^1\d{10}$")) {
             $this->error(__('Mobile is incorrect') . ':' . $mobile);
+        }
+
+        $ret = $this->auth->changepwd($pwd, '', true);
+        if (!$ret) {
+            $this->error($this->auth->getError());
         }
 
         $ret = $this->auth->changeMobile($mobile);

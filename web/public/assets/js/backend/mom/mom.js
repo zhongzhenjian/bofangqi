@@ -31,8 +31,8 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
 	                    {field: 'user.username', title: __('User.username')},
 	                    {field: 'user.mobile', title: __('手机号')},
                         {field: 'num', title: __('Num')},
-	                    {field: 'class', title: __('Status'),formatter: Table.api.formatter.status, searchList: {'0': __('游客'), '1': __('会员'), '2': __('VIP'), '3': __('过期VIP')}},
-                        {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange'},
+	                    {field: 'class', title: __('类型'),formatter: Table.api.formatter.status, searchList: {'0': __('游客'), '1': __('会员'), '2': __('VIP'), '3': __('过期VIP')}},
+                        {field: 'create_time', title: __('Create_time'), formatter: Table.api.formatter.datetime, operate: 'RANGE', addclass: 'datetimerange', sortable: true},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]

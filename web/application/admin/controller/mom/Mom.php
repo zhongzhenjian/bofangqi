@@ -52,25 +52,28 @@ class Mom extends Backend
             }
             list($where, $sort, $order, $offset, $limit) = $this->buildparams();
             $data = [];
-            if (isset(input()['type'])) {
+            /*if (isset(input()['type'])) {
                 if (input()['type'] == 'all') {
                     $data = [];
                 } else {
                     $data = ['class' => input()['type']];
                 }
-            }
+            }*/
+
             $total = $this->model
                 ->with(['user'])
                 ->where($data)
                 ->where($where)
-                ->order('create_time', 'desc')
+                //->order('create_time', 'desc')
+                ->order($sort, $order)
                 ->count();
 
             $list = $this->model
                 ->with(['user'])
                 ->where($where)
                 ->where($data)
-                ->order('create_time', 'desc')
+                //->order('create_time', 'desc')
+                ->order($sort, $order)
                 ->limit($offset, $limit)
                 ->select();
 
