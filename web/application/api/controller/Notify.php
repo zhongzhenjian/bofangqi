@@ -19,10 +19,11 @@ class Notify extends Api
 
     //protected $config = ['domain' => 'http://154.64.2.29:88/', 'pay_memberid' => '220169932','md5Key' => '7310s4b9063zgxm38qnlb5zngsb27fhh', 'tjurl' => 'http://20.187.85.21/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1037', 'alipay'=>'1034', 'wechat'=>'1035'] ];
     //鸽子支付
-    protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1062', 'alipay'=>'1062', 'wechat'=>'1062'] ];
+    //protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1062', 'alipay'=>'1062', 'wechat'=>'1062'] ];
+    //艾希支付
+    protected $config = ['domain' => 'http://66.232.4.249/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
 
-
-    //会员卡回调
+    /*//会员卡回调 鸽子支付
     public function card(Request $request)
     {
         $req = $request->post();
@@ -111,6 +112,119 @@ class Notify extends Api
                 Db::commit();//提交事务
                 Log::record("会员卡回调，成功:" . $req['orderid'] , Log::INFO);
                 exit('ok');
+            }
+            else
+            {
+                // 回滚事务
+                Db::rollback();
+                Log::record("会员卡回调，订单处理失败" . $req['orderid'] , Log::INFO);
+                exit('订单处理失败');
+            }
+        } catch (\Exception $e) {
+            // 回滚事务
+            Db::rollback();
+            Log::record("会员卡回调，报错" . $req['orderid'] , Log::INFO);
+            exit('error');
+        }
+        // $this->success('回调成功', '', 200);
+    }*/
+
+    //会员卡回调 艾希支付
+    public function aixipay(Request $request)
+    {
+        $ip = request()->ip();
+        if($ip != "207.148.38.94")
+        {
+            Log::record("艾希支付回调ip不在白名单:" . $ip, Log::INFO);
+            exit('艾希支付回调ip不在白名单:' . $ip);
+        }
+
+        $req = $request->post();
+
+        Log::record("艾希支付回调，数据==========》" . json_encode($req), Log::INFO);
+
+        // $temp = '{"memberid":"220169932","orderid":"2022011910250102","transaction_id":"20220119224446101481","amount":"50.0000","datetime":"20220119224707","returncode":"00","sign":"673919E19FB2D094E2F37644580AA1D6","attach":"198"}';
+        // $req = json_decode($temp, true);
+
+        $q_sign = $req['sign'];
+        if(isset($req['sign'])) unset($req['sign']);
+        if(isset($req['gcashOrder'])) unset($req['gcashOrder']);
+        $sign = $this->sign($req);
+        if($sign != $q_sign){
+            Log::record("会员卡回调，签名错误" , Log::INFO);
+            exit('sign error');
+        }
+
+        //00表示成功
+        if($req['orderStatus'] != '00')
+        {
+            Log::record("会员卡回调，转态不确定:" .  $req['orderStatus'], Log::INFO);
+            exit('非成功状态不处理');
+        }
+
+        $find = \app\admin\model\Order::where('code', $req['appOrderNo'])->find();//订单
+        $user = \app\admin\model\User::where('id', $find['userid'])->find();//用户
+        $card = \app\admin\model\Card::where('id', $find['cardid'])->find();//会员卡
+        $arr = Config::where('name', 'like', '%' . 'integral' . '%')->column('value');
+
+        $order = \app\admin\model\Order::where('code', $req['appOrderNo'])->find();
+        if(!$order)
+        {
+            Log::record("会员卡回调，订单不存在" .  $req['appOrderNo'], Log::INFO);
+            exit('订单不存在');
+        }
+        if($order['list'] != '0')
+        {//0-待支付
+            Log::record("会员卡回调，订单已审核完毕" .  $req['appOrderNo'], Log::INFO);
+            exit('SUCCESS');
+        }
+
+        // 启动事务
+        Db::startTrans();
+        try{
+
+            //订单状态改变
+            $res = \app\admin\model\Order::where('id', $order['id'])->update(['list' => 1, 'pay_time' => date('Y-m-d H:i:s')]);
+            if ($res) {
+                //上级代理返利
+                $ext = Ext::where('user_id', $user['id'])->find();//推广
+                if ($ext) {
+                    $t_user = \app\admin\model\User::where('id', $ext['userid'])->find();
+                    if ($t_user['agent'] == 1) {
+                        //代理
+                        $money = 0;
+                        if ($t_user['integral'] < $arr[1] && $t_user['integral'] >= $arr[0]) {
+                            //等级1
+                            $money = $find['price'] * 0.15;
+                        }
+                        if ($t_user['integral'] < $arr[2] && $t_user['integral'] >= $arr[1]) {
+                            //等级二
+                            $money = $find['price'] * 0.25;
+
+                        }
+                        if ($t_user['integral'] >= $arr[2]) {
+                            //等级三
+                            $money = $find['price'] * 0.45;
+                        }
+                    } else {
+                        //非代理
+                    }
+                    \app\admin\model\User::where('id', $ext['userid'])->setInc('money', $money);
+                    Ext::where('user_id', $user['id'])->setInc('money', $money);//推广
+
+                }
+                //会员时间
+                if ($user['vip_time'] > date('Y-m-d H:i:s')) {
+                    //没到期时间
+                    $time = strtotime($user['vip_time']) + ($card['time'] * 1 * 60 * 60 * 24);
+                } else {
+                    //到期时间
+                    $time = ($card['time'] * 1 * 60 * 60 * 24) + time();
+                }
+                \app\admin\model\User::where('id', $find['userid'])->update(['vip_time' => date('Y-m-d H:i:s', $time)]);
+                Db::commit();//提交事务
+                Log::record("会员卡回调，成功:" . $req['orderid'] , Log::INFO);
+                exit('SUCCESS');
             }
             else
             {

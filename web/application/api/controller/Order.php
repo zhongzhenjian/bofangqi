@@ -106,7 +106,7 @@ class Order extends Api
 
 
     //艾希支付
-    protected $config = ['domain' => 'http://9i7tao.cn/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
+    protected $config = ['domain' => 'http://66.232.4.249/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
     //购买会员卡
     public function add(Request $request)
     {
@@ -130,7 +130,7 @@ class Order extends Api
                 "orderAmt" => $req['price'],//金额
                 "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
                 "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
-                "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan?rs=1',//跳转地址
+                "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan',//跳转地址
             );
 
             $signParameter = array(
@@ -279,7 +279,7 @@ class Order extends Api
             "orderAmt" => $req['price'],//金额
             "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
             "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
-            "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan?rs=1',//跳转地址
+            "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan',//跳转地址
         );
 
         $signParameter = array(
