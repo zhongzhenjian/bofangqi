@@ -807,7 +807,7 @@ class Channel extends Api
         $data['appLink'] = '';
         $data['ldyLink'] = '';
 
-        $data['h5Link'] = config('host').'h5?id='. $user['id'];
+        $data['h5Link'] = config('main_host').'?id='. $user['id'];
         $data['jhLink'] = '';
         $data['upCode'] = '';
         $data['downCode'] = '';
