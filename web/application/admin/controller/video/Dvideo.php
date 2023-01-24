@@ -213,6 +213,16 @@ class Dvideo extends Backend
             $belong[$id[$i]] = $name[$i];
         }
         $this->assign('belong', $belong);
+
+        $mosaic = ['0'=>'请选择','1'=>'有码','2'=>'无码'];
+        $this->assign('mosaic', $mosaic);
+
+        $duration = ['0'=>'请选择','long'=>'长视频','short'=>'短视频'];
+        $this->assign('duration', $duration);
+
+        $area = ['0'=>'请选择','TaiWan'=>'台湾','OuMei'=>'欧美','RiBen'=>'日本','GuoChan'=>'国产','HanGuo'=>'韩国'];
+        $this->assign('area', $area);
+
         return parent::edit($ids);
     }
 

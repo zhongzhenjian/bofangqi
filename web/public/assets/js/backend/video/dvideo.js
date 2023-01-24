@@ -30,11 +30,32 @@ define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefin
                         {field: 'video_image', title: __('Video_image'), events: Table.api.events.image, formatter: Table.api.formatter.image},
                         {field: 'url', title: __('Url'), formatter: Table.api.formatter.url},
 	                    // {field: 'actress.name', title: __('演员')},
-	                    {field: 'subordinate.name', title: __('分类'),operate: false},
+	                    {field: 'subordinate.name', title: __('视频分类'),operate: false},
+                        {
+                            field: 'mosaic',
+                            title: __('马赛克'),
+                            formatter: Table.api.formatter.status,
+                            searchList: {'1': __('有码'), '2': __('无码')},
+                             sortable: true
+                        },
+                        {
+                            field: 'duration',
+                            title: __('视频长短'),
+                            formatter: Table.api.formatter.status,
+                            searchList: {'short': __('短视频'), 'long': __('长视频')},
+                            sortable: true
+                        },
+                        {
+                            field: 'area',
+                            title: __('地区'),
+                            formatter: Table.api.formatter.status,
+                            searchList: {'TaiWan ': __('台湾'), 'OuMei': __('欧美'), 'RiBen': __('日本'), 'GuoChan': __('国产'), 'HanGuo': __('韩国')}
+                        },
                         // {field: 'belong.name', title: __('所属')},
-                        {field: 'hits', title: __('Hits')},
-                        {field: 'comments', title: __('Comments')},
-                        {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange'},
+                        {field: 'comments', title: __('Comments'),sortable: true},
+                        {field: 'play_times', title: __('播放次数'),sortable: true},
+                        {field: 'score', title: __('评分(0~10)')},
+                        {field: 'create_time', title: __('Create_time'), operate:'RANGE', addclass:'datetimerange', sortable: true},
                         {field: 'operate', title: __('Operate'), table: table, events: Table.api.events.operate, formatter: Table.api.formatter.operate}
                     ]
                 ]
