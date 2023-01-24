@@ -130,7 +130,7 @@ class Order extends Api
                 "orderAmt" => $req['price'],//金额
                 "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
                 "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
-                "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan',//跳转地址
+                "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuanok',//跳转地址
             );
 
             $signParameter = array(
@@ -279,7 +279,7 @@ class Order extends Api
             "orderAmt" => $req['price'],//金额
             "payId" => $this->config['pay_bankcode'][$req['pay_type']],//支付类型
             "notifyURL" => $this->config['domain'] . 'api/notify/aixipay',//异步回调地址
-            "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuan',//跳转地址
+            "jumpURL" => $this->config['domain'] . '/h5/#/pages/mine/viphuiyuanok',//跳转地址
         );
 
         $signParameter = array(
