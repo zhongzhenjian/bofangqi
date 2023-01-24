@@ -1,4 +1,5 @@
 define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
+    $.fn.bootstrapTable.locales[Table.defaults.locale]['formatSearch'] = function(){return "用户名";};
 
     var Controller = {
         index: function () {

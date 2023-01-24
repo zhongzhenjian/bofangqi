@@ -18,7 +18,8 @@ function today(AddDayCount) {
 }
 
 define(['jquery', 'bootstrap', 'backend', 'table', 'form'], function ($, undefined, Backend, Table, Form) {
-	
+	$.fn.bootstrapTable.locales[Table.defaults.locale]['formatSearch'] = function(){return "系统订单号";};
+
 	var Controller = {
 		index: function () {
 			// 初始化表格参数配置

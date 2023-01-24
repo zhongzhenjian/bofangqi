@@ -13,7 +13,7 @@ class User extends Backend
 {
 
     protected $relationSearch = true;
-
+    protected $searchFields = 'username';
 
     /**
      * @var \app\admin\model\User
