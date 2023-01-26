@@ -741,15 +741,15 @@ class Channel extends Api
         }
 
         $report = new ReportModel();
-        $res = $report::where($where)
+        $res = $report::where($where)->whereOr('userid', 'eq', $user['id'])
             ->field('workdate,userid,username,pay_amt,install,arpu,diff_amt,diff_amt_after,type')
             ->page($req['current'], $req['every'])
             ->order('workdate desc')
             ->select();
 
-        $total = $report::where($where)->count();
+        $total = $report::where($where)->whereOr('userid', 'eq', $user['id'])->count();
 
-        $totalRes = $report::where($where)->field('sum(pay_amt) as payAmt,sum(install) as install,sum(arpu) as arpu,sum(diff_amt) as sumDiffAmt,sum(diff_amt_after) as sumDiffAmtAfter')->select();
+        $totalRes = $report::where($where)->whereOr('userid', 'eq', $user['id'])->field('sum(pay_amt) as payAmt,sum(install) as install,sum(arpu) as arpu,sum(diff_amt) as sumDiffAmt,sum(diff_amt_after) as sumDiffAmtAfter')->select();
 
         $sumPayAmt = 0;
         $sumInstall = 0;
