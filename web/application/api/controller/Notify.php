@@ -21,7 +21,7 @@ class Notify extends Api
     //鸽子支付
     //protected $config = ['domain' => 'http://154.31.62.15/', 'pay_memberid' => '220841354','md5Key' => 'esvm2yuak5vvc1zjcivc08fbxmevlp28', 'tjurl' => 'http://110.173.54.18/Pay_Index.html', 'pay_bankcode' => ['alipay_qr'=>'1062', 'alipay'=>'1062', 'wechat'=>'1062'] ];
     //艾希支付
-    protected $config = ['domain' => 'http://66.232.4.249/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
+    protected $config = ['domain' => 'https://ssyy100.cn/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
 
     /*//会员卡回调 鸽子支付
     public function card(Request $request)
@@ -183,8 +183,12 @@ class Notify extends Api
         Db::startTrans();
         try{
 
+            $ts = time();
+            $pay_time = date('Y-m-d H:i:s',$ts);
+            $pay_date = date('Y-m-d',$ts);
+
             //订单状态改变
-            $res = \app\admin\model\Order::where('id', $order['id'])->update(['list' => 1, 'pay_time' => date('Y-m-d H:i:s')]);
+            $res = \app\admin\model\Order::where('id', $order['id'])->update(['list' => 1, 'pay_time' => $pay_time, 'pay_date' => $pay_date]);
             if ($res) {
                 //上级代理返利
                 $ext = Ext::where('user_id', $user['id'])->find();//推广

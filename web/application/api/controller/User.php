@@ -405,6 +405,9 @@ class User extends Api
             $this->error('ＮＯ　ＯＮＥ');
         }
         $req = $request->post();
+        if(null == $req['birthday'])
+            unset($req['birthday']);
+
         $users = new Usermodel();
         $res = $users->save($req, ['id' => $user->id]);
         if ($res) {

@@ -66,7 +66,7 @@ class Mom extends Api
                     $res = $moms->save($req);
                 }
             }
-            else if($user['vip_time'] > $date)
+            else if($user['vip_time'] > date('Y-m-d H:i:s'))
             {//VIP
                 $find = Moms::where($where)->find();
                 //存在

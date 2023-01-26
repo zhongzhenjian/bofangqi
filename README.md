@@ -12,7 +12,7 @@ TP伪静态必须设置 不然打开APP会提示检测版本失败
 --------------------------------------------------------
 
 启动聊天服务器设置教程：
-1：PHP 7.0安装扩展（ionCube、fileinfo、opcache、redis、Swoole、Swoole4）
+1：PHP 7.2安装扩展（ionCube、fileinfo、opcache、redis、Swoole、Swoole4）
 2：宝塔“安全”添加放行8282端口（此端口主要为Workerman聊天服务器端口，如不设置8282放行端口，APP直播间无法连接聊天服务器！）
 3：配置PHP禁用函数：/server/php/70/etc/php.ini 搜索disable_functions =后面的内容替换为 passthru, exec, system, putenv, chroot, chgrp, chown, shell_exec, popen, proc_open, pcntl_exec, ini_alter, ini_restore, dl, openlog, syslog, readlink, symlink, popepassthru, pcntl_waitpid, pcntl_wifexited,pcntl_wifstopped, pcntl_wifsignaled, pcntl_wifcontinued, pcntl_wexitstatus, pcntl_wtermsig, pcntl_wstopsig, pcntl_get_last_error, pcntl_strerror, pcntl_sigprocmask, pcntl_sigwaitinfo, pcntl_sigtimedwait, pcntl_exec, pcntl_getpriority, pcntl_setpriority, imap_open, apache_setenv
                                   或直接在php.ini文件里面删除pcntl_fork,

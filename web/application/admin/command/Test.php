@@ -23,6 +23,7 @@ class Test extends Command
     }
     protected function execute(Input $input, Output $output)
     {
+        //echo "计算报表开始:" . date('Y-m-d H:i:s') . "\r\n";
         Log::record("计算报表开始:" . date('Y-m-d H:i:s'), Log::INFO);
         // 定时器需要执行的内容
 
@@ -30,22 +31,24 @@ class Test extends Command
         $where['is_calc'] = '0';//未计算
         $where['agentlevel'] = array("like","%|%");//有上级
         $Order = new OrderModel();
-        $data= $Order->where($where)->order('id', 'asc')->limit(50)->select();
+        $data= $Order->where($where)->order('code', 'asc')->limit(50)->select();
 
         Log::record("订单数:" . count($data), Log::INFO);
+        //echo "待计算支付订单数:" . count($data) . "\r\n";
         if(count($data) == 0)
         {
             Log::record("计算报表结束[无任务]:" . date('Y-m-d H:i:s'), Log::INFO);
+            //echo "计算报表结束[无任务]:" . date('Y-m-d H:i:s') . "\r\n";
             return;
         }
-
         foreach ($data as $key => $value) {
             // 启动事务
             Db::startTrans();
             try{
                 Log::record("订单详情:" . $value, Log::INFO);
+                //echo "订单详情:" . $value  . "\r\n";
 
-                $condition['id'] = $value['id'];
+                $condition['code'] = $value['code'];
                 $condition['list'] = '1';//已支付
                 $condition['is_calc'] = '0';//未计算
                 $condition['agentlevel'] = array("like","%|%");//有上级
@@ -68,155 +71,155 @@ class Test extends Command
                     $agent2 = \app\admin\model\Admin::get(array_shift($agents));
                     $agent3 = \app\admin\model\Admin::get(array_shift($agents));
 
-                    Log::record("代理1:" .$agent1['id'], Log::INFO);
-                    Log::record("代理2:" .$agent2['id'], Log::INFO);
-                    Log::record("代理3:" .$agent3['id'], Log::INFO);
+                    Log::record("代理1:" .$agent1['id'].','.$agent1['username'] . ',分成比例:' . $agent1['commission'], Log::INFO);
+                    Log::record("代理2:" .$agent2['id'].','.$agent2['username'] . ',分成比例:' . $agent2['commission'] , Log::INFO);
+                    Log::record("代理3:" .$agent3['id'].','.$agent3['username'] . ',分成比例:' . $agent3['commission'], Log::INFO);
 
-                    $commission1 = 0;//一级代理总佣金
-                    $commission2 = 0;//二级代理总佣金
-                    $commission3 = 0;//三级代理总佣金
-                    //提成1
-                    if($agent1['commission'] > 0)
+                    if($agent1['commission'] < $agent2['commission'] || $agent2['commission'] < $agent3['commission']
+                        || $agent3['commission'] < 0 || $agent3['commission'] > 100 || $agent2['commission'] > 100 || $agent1['commission'] > 100)
                     {
-                        //最大提成是100%
-                        $rate = $agent1['commission'];
-                        if($rate > 100)
-                            $rate = 100;
-
-                        //一级代理总佣金
-                        $totalAmt1 = $value['price'] * $rate / 100;
-
-                        if($agent2['commission'] > 0)
-                        {
-                            //最大提成是100%
-                            $rate = $agent2['commission'];
-                            if($rate > 100)
-                                $rate = 100;
-
-                            //二级代理总佣金
-                            $totalAmt2 = $totalAmt1  * $rate / 100;
-                            //一级代理
-                            $commission1 = $totalAmt1 - $totalAmt2;
-                            //二级代理
-                            $commission2 = $totalAmt2;
-
-                            if($agent3['commission'] > 0)
-                            {
-                                //最大提成是100%
-                                $rate = $agent3['commission'];
-                                if($rate > 100)
-                                    $rate = 100;
-
-                                //三级代理总佣金
-                                $totalAmt3 = $totalAmt2  * $rate / 100;
-
-                                //三级代理
-                                $commission3 = $totalAmt3;
-                                //二级代理
-                                $commission2 = $totalAmt2 - $totalAmt3;
-                            }
-                        }
+                        Log::record("代理分成比例不正确" , Log::INFO);
+                        Db::rollback();
+                        continue;
                     }
 
+                    //一级代理总佣金
+                    $rate = $agent1['commission'];
+                    $totalAmt1 = $value['price'] * $rate / 100;
+                    //echo $agent1['type'] . "代理:" .$agent1['id'] . '(' . $agent1['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt1 . "\r\n";
+                    Log::record($agent1['type'] . "代理:" .$agent1['id'] . '(' . $agent1['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt1, Log::INFO);
 
-                    Db::rollback();
+                    //二级代理总佣金
+                    $rate = $agent2['commission'];
+                    $totalAmt2 = $value['price']  * $rate / 100;
+                    //echo $agent2['type'] . "代理:" .$agent2['id'] . '(' . $agent2['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt2 . "\r\n";
+                    Log::record($agent2['type'] . "代理:" .$agent2['id'] . '(' . $agent2['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt2, Log::INFO);
 
-                    /*$ext = Ext::where('user_id', $user['id'])->find();//推广
-                    if ($ext) {
-                        $t_user = \app\admin\model\User::where('id', $ext['userid'])->find();
-                        if ($t_user['agent'] == 1) {
-                            //代理
-                            $money = 0;
-                            if ($t_user['integral'] < $arr[1] && $t_user['integral'] >= $arr[0]) {
-                                //等级1
-                                $money = $find['price'] * 0.15;
-                            }
-                            if ($t_user['integral'] < $arr[2] && $t_user['integral'] >= $arr[1]) {
-                                //等级二
-                                $money = $find['price'] * 0.25;
+                    //三级代理总佣金
+                    $rate = $agent3['commission'];
+                    $totalAmt3 = $value['price']  * $rate / 100;
+                    //echo $agent3['type'] . "代理:" .$agent3['id'] . '(' . $agent3['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt3 . "\r\n";
+                    Log::record($agent3['type'] . "代理:" .$agent3['id'] . '(' . $agent3['username'] . ')' . ',分成比例:' . $rate . ',分成:' . $value['price'] . ' * ' . $rate . '/100 = ' . $totalAmt3, Log::INFO);
 
-                            }
-                            if ($t_user['integral'] >= $arr[2]) {
-                                //等级三
-                                $money = $find['price'] * 0.45;
-                            }
-                        } else {
-                            //非代理
-                        }
-                        \app\admin\model\User::where('id', $ext['userid'])->setInc('money', $money);
-                        Ext::where('user_id', $user['id'])->setInc('money', $money);//推广
+                    $commission3 = $totalAmt3;//三级代理总佣金
+                    $commission2 = $totalAmt2 - $totalAmt3;//二级代理总佣金
+                    $commission1 = $totalAmt1 - $totalAmt2;//一级代理总佣金
 
+                    Log::record("代理1:" .$agent1['id'].','.$agent1['username'] . ',佣金:' . $commission1, Log::INFO);
+                    Log::record("代理2:" .$agent2['id'].','.$agent2['username'] . ',佣金:' . $commission2 , Log::INFO);
+                    Log::record("代理3:" .$agent3['id'].','.$agent3['username'] . ',佣金:' . $commission3, Log::INFO);
+
+                    $report = new ReportModel();
+                    //一级代理
+                    $where1 = [];
+                    $where1['userid'] = $agent1['id'];
+                    $where1['workdate'] = $value['pay_date'];
+                    $where1['type'] = 'H5';//暂时固定H5
+
+                    $record1 = $report::where($where1)->find();
+                    if(null == $record1)
+                    {
+                        $write1['userid'] = $agent1['id'];
+                        $write1['workdate'] = $value['pay_date'];
+                        $write1['type'] = 'H5';//暂时固定H5
+                        $write1['username'] = $agent1['username'];
+                        $write1['level'] = $agent1['level'];
+                        $write1['pay_amt'] = $value['price'];
+                        $write1['up_agent'] = $agent1['up_agent'];
+                        Log::record("1报表不存在:" . json_encode($where1), Log::INFO);
+                        $ret1 = $report->insert($write1);
                     }
-                    //会员时间
-                    if ($user['vip_time'] > date('Y-m-d H:i:s')) {
-                        //没到期时间
-                        $time = strtotime($user['vip_time']) + ($card['time'] * 1 * 60 * 60 * 24);
-                    } else {
-                        //到期时间
-                        $time = ($card['time'] * 1 * 60 * 60 * 24) + time();
+                    else
+                    {
+                        Log::record("1报表存在:" . json_encode($where) , Log::INFO);
+                        $ret1 = $record1->setInc('pay_amt', $value['price']);
                     }
-                    \app\admin\model\User::where('id', $find['userid'])->update(['vip_time' => date('Y-m-d H:i:s', $time)]);
-                    Db::commit();//提交事务
-                    Log::record("会员卡回调，成功:" . $req['orderid'] , Log::INFO);
-                    exit('ok');*/
+                    Log::record("ret1执行结果:" . $ret1 , Log::INFO);
+
+                    //二级代理
+                    $where2 = [];
+                    $where2['userid'] = $agent2['id'];
+                    $where2['workdate'] = $value['pay_date'];
+                    $where2['type'] = 'H5';//暂时固定H5
+
+                    $record2 = $report::where($where2)->find();
+                    if(null == $record2)
+                    {
+                        Log::record("2报表不存在:" . json_encode($where2) , Log::INFO);
+                        $write2['userid'] = $agent2['id'];
+                        $write2['workdate'] = $value['pay_date'];
+                        $write2['type'] = 'H5';//暂时固定H5
+                        $write2['username'] = $agent2['username'];
+                        $write2['level'] = $agent2['level'];
+                        $write2['pay_amt'] = $value['price'];
+                        $write2['up_agent'] = $agent2['up_agent'];
+                        $ret2 = $report->insert($write2);
+                    }
+                    else
+                    {
+                        Log::record("2报表存在:" . json_encode($where) , Log::INFO);
+                        $ret2 = $record2->setInc('pay_amt', $value['price']);
+                    }
+                    Log::record("ret2执行结果:" . $ret2, Log::INFO);
+
+                    //三级代理
+                    $where3 = [];
+                    $where3['userid'] = $agent3['id'];
+                    $where3['workdate'] = $value['pay_date'];
+                    $where3['type'] = 'H5';//暂时固定H5
+
+                    $record3 = $report::where($where3)->find();
+                    if(null == $record3)
+                    {
+                        Log::record("3报表不存在:" . json_encode($where3) , Log::INFO);
+                        $write3['userid'] = $agent3['id'];
+                        $write3['workdate'] = $value['pay_date'];
+                        $write3['type'] = 'H5';//暂时固定H5
+                        $write3['username'] = $agent3['username'];
+                        $write3['level'] = $agent3['level'];
+                        $write3['pay_amt'] = $value['price'];
+                        $write3['up_agent'] = $agent3['up_agent'];
+
+                        $ret3 = $report->insert($write3);
+                    }
+                    else
+                    {
+                        Log::record("3报表存在:" . json_encode($where) , Log::INFO);
+                        $ret3 = $record3->setInc('pay_amt', $value['price']);
+                    }
+                    Log::record("ret3执行结果:" . $ret3, Log::INFO);
+
+                    if($ret1 && $ret2 && $ret3)
+                    {
+                        Db::commit();//提交事务
+                        Log::record("支付订单结算成功" . $value['code'] , Log::INFO);
+                        continue;
+                    }
+                    else
+                    {
+                        Db::rollback();
+                        Log::record("支付订单结算失败1:" . $value['code'] , Log::INFO);
+                        continue;
+                    }
                 }
                 else
                 {
                     // 回滚事务
                     Db::rollback();
                     Log::record("支付订单结算失败" . $value['code'] , Log::INFO);
-                    exit('订单处理失败');
+                    echo "支付订单结算失败2:" . $value['code']  . "\r\n";
+                    continue;
                 }
             } catch (\Exception $e) {
                 // 回滚事务
                 Db::rollback();
-                Log::record("支付订单结算报错" . $e , Log::INFO);
-                exit('error');
+                Log::record("支付订单结算异常" . $e , Log::INFO);
+                echo "支付订单结算报错" . $e . "\r\n";
+                continue;
             }
 
         }
 
-
-
-        /*$url="";
-        if(count($data)>0){
-            $url=$data[0]['url'];
-        }
-        $this->unlock();
-
-        // 筛选条件
-        $where['workdate'] = array("between","$beginTime,$endTime");
-        $where['type'] = $type;
-
-        //判断登录用户类型
-        $user = $this->auth->getUserinfo();
-        if('admin' == $user['type']){
-
-        }
-        else
-        {//非管理员只能查询自己下级
-            $where['up_agent'] = $user['id'];
-        }
-
-        //用户名
-        if(null != $username && '' != $username)
-        {
-            $where['username'] = $username;
-        }
-        //用户id
-        if(null != $id && '' != $id)
-        {
-            $where['userid'] = $id;
-        }
-
-        $report = new ReportModel();
-        $res = $report::where($where)
-            ->field('workdate,userid,username,pay_amt,install,arpu,diff_amt,diff_amt_after,type')
-            ->page($req['current'], $req['every'])
-            ->order('workdate desc')
-            ->select();*/
-
-        // .....
-        Log::record("计算报表结束:" . date('Y-m-d H:i:s'), Log::INFO);
+        Log::record("计算报表结束:" . date('Y-m-d H:i:s' . "\r\n\r\n"), Log::INFO);
     }
 }

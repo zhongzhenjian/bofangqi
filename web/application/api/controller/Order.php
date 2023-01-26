@@ -106,7 +106,7 @@ class Order extends Api
 
 
     //艾希支付
-    protected $config = ['domain' => 'http://66.232.4.249/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
+    protected $config = ['domain' => 'https://ssyy100.cn/', 'pay_memberid' => '20211645','md5Key' => 'A6794E591EF1FB23C8CCD3B69B5A87EB', 'tjurl' => 'http://9i7tao.cn/newbankPay/crtOrder.do', 'pay_bankcode' => ['alipay_qr'=>'1131', 'alipay'=>'1131', 'wechat'=>'1130'] ];
     //购买会员卡
     public function add(Request $request)
     {
@@ -149,7 +149,12 @@ class Order extends Api
             // var_dump($res);exit;
             if ($res['code'] == '0000') {
                 $req['out_trade_no'] = $res['data']['orderNo'];//上游订单
+                $ts = time();
+                $req['create_time'] = date('Y-m-d H:i:s',$ts);
+                $req['create_date'] = date('Y-m-d',$ts);
+
                 $ret['url'] = $res['data']['payUrl'];//支付链接
+
                 $order = $this->model->allowField(true)->save($req);
                 if ($order) {
                     $this->result('下单成功', $ret, 200);
@@ -298,6 +303,9 @@ class Order extends Api
         // var_dump($res);exit;
         if ($res['code'] == '0000') {
             $req['out_trade_no'] = $res['data']['orderNo'];//上游订单
+            $ts = time();
+            $req['create_time'] = date('Y-m-d H:i:s',$ts);
+            $req['create_date'] = date('Y-m-d',$ts);
 
             $ret['url'] = $res['data']['payUrl'];//支付链接
 
