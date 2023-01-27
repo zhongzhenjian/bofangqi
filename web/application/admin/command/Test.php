@@ -126,6 +126,7 @@ class Test extends Command
                         $write1['level'] = $agent1['level'];
                         $write1['pay_amt'] = $value['price'];
                         $write1['up_agent'] = $agent1['up_agent'];
+                        $write1['user_type'] = $agent1['type'];
                         Log::record("1报表不存在:" . json_encode($where1), Log::INFO);
                         $ret1 = $report->insert($write1);
                     }
@@ -153,6 +154,7 @@ class Test extends Command
                         $write2['level'] = $agent2['level'];
                         $write2['pay_amt'] = $value['price'];
                         $write2['up_agent'] = $agent2['up_agent'];
+                        $write2['user_type'] = $agent2['type'];
                         $ret2 = $report->insert($write2);
                     }
                     else
@@ -179,7 +181,7 @@ class Test extends Command
                         $write3['level'] = $agent3['level'];
                         $write3['pay_amt'] = $value['price'];
                         $write3['up_agent'] = $agent3['up_agent'];
-
+                        $write3['user_type'] = $agent3['type'];
                         $ret3 = $report->insert($write3);
                     }
                     else

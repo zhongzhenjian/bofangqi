@@ -696,6 +696,9 @@ class Channel extends Api
         $type = $req['type'];//类型 APP H5 PC
         $id = $req['id'];//ID
         $username = $req['username'];//名称
+        $usertype = '';
+        if(isset($req["usertype"]) && null != $req["usertype"] && "" != $req["usertype"])
+            $usertype = $req['usertype'];//身份类型
 
         $beginTime = $req['beginTime'];//开始时间
         $endTime = $req['endTime'];//结束时间
@@ -722,11 +725,19 @@ class Channel extends Api
         //判断登录用户类型
         $user = $this->auth->getUserinfo();
         if('admin' == $user['type']){
-
+            if($usertype != '')
+                $where['user_type'] = $usertype;
         }
-        else
-        {//非管理员只能查询自己下级
+        else if('agent1' == $user['type'] || 'agent2' == $user['type'])
+        {//1~2级代理只能查询自己下级
             $where['up_agent'] = $user['id'];
+        }
+        else if('agent3' == $user['type'])
+        {//3级代理只能查询自己
+            $where['userid'] = $user['id'];
+        }
+        else{
+            $this->error('用户类型不正确');
         }
 
         //用户名
@@ -741,15 +752,15 @@ class Channel extends Api
         }
 
         $report = new ReportModel();
-        $res = $report::where($where)->whereOr('userid', 'eq', $user['id'])
+        $res = $report::where($where)
             ->field('workdate,userid,username,pay_amt,install,arpu,diff_amt,diff_amt_after,type')
             ->page($req['current'], $req['every'])
             ->order('workdate desc')
             ->select();
 
-        $total = $report::where($where)->whereOr('userid', 'eq', $user['id'])->count();
+        $total = $report::where($where)->count();
 
-        $totalRes = $report::where($where)->whereOr('userid', 'eq', $user['id'])->field('sum(pay_amt) as payAmt,sum(install) as install,sum(arpu) as arpu,sum(diff_amt) as sumDiffAmt,sum(diff_amt_after) as sumDiffAmtAfter')->select();
+        $totalRes = $report::where($where)->field('sum(pay_amt) as payAmt,sum(install) as install,sum(arpu) as arpu,sum(diff_amt) as sumDiffAmt,sum(diff_amt_after) as sumDiffAmtAfter')->select();
 
         $sumPayAmt = 0;
         $sumInstall = 0;
